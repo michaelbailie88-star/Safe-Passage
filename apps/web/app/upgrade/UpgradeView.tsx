@@ -72,7 +72,6 @@ export function UpgradeView() {
               <li>Transformation programs</li>
               <li>Advanced analytics</li>
               <li>Community groups</li>
-              <li>Guided audio</li>
               <li>Courses</li>
             </ul>
 

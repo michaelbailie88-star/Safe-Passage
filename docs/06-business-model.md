@@ -13,7 +13,6 @@ Freemium.
 - Transformation programs
 - Advanced analytics
 - Community groups
-- Guided audio
 - Courses
 
 ## Future Revenue
