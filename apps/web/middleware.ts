@@ -30,8 +30,11 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protect the dashboard — bounce signed-out visitors to sign-in.
-  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
+  // Protect the whole authenticated app shell — bounce signed-out
+  // visitors to sign-in. Everything past the landing/marketing pages is
+  // meant to be a distinct, signed-in-only experience.
+  const protectedPrefixes = ["/dashboard", "/logbook", "/programs", "/courses", "/account", "/admin", "/analytics", "/community"];
+  if (!user && protectedPrefixes.some((p) => request.nextUrl.pathname.startsWith(p))) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/sign-in";
     redirectUrl.searchParams.set("redirectedFrom", request.nextUrl.pathname);
@@ -42,5 +45,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/logbook/:path*",
+    "/programs/:path*",
+    "/courses/:path*",
+    "/account/:path*",
+    "/admin/:path*",
+    "/analytics/:path*",
+    "/community/:path*",
+  ],
 };

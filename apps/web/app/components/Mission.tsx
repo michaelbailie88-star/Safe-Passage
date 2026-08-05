@@ -35,6 +35,53 @@ export function Mission() {
             </li>
           ))}
         </ul>
+
+        <div className="mx-auto mt-14 max-w-xl border-t border-storm-700 pt-10 text-left">
+          <p className="text-center font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
+            Why I built this
+          </p>
+          <div className="mt-6 space-y-4 text-sm leading-relaxed text-fog-300">
+            <p>
+              I became a father young. My kids were my whole world &mdash;
+              and I didn&rsquo;t yet know that one day, that world would
+              crash.
+            </p>
+            <p>
+              I couldn&rsquo;t predict the storms coming. I couldn&rsquo;t
+              prevent them. All I could do was go through them. Battle
+              after battle, I endured in silence, and piece by piece, I
+              lost parts of myself along the way. Depression. Thoughts of
+              not wanting to be alive anymore. A darkness so complete that
+              I became afraid of the light.
+            </p>
+            <p>
+              In a storm like that, you&rsquo;ll take any security you can
+              find &mdash; but I learned that security means nothing
+              without safety underneath it. Safety in your mind. Safety in
+              your self-confidence. Safety in the choices you make. You
+              can&rsquo;t build the life you want until your life is
+              safely secured first.
+            </p>
+            <p>
+              It took real work &mdash; programs, people who showed up for
+              me, and rediscovering my faith &mdash; before I found that
+              safety. I was given a safe passage through my own storm. And
+              with it, I was given a mission.
+            </p>
+            <p className="font-display text-base italic text-mist-100">
+              Go back into the storm. Find the men still lost in it, on
+              paths no one marked for them, and extend the same safety I
+              was given.
+            </p>
+            <p>
+              I didn&rsquo;t know my way out. That&rsquo;s exactly why
+              I&rsquo;ve made it my mission to help other men find theirs.
+            </p>
+            <p className="pt-2 text-right text-xs text-fog-500">
+              &mdash; Michael, founder
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

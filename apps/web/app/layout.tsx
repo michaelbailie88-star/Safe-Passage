@@ -1,8 +1,28 @@
 import type { Metadata } from "next";
+import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { LighthouseBackdrop } from "./components/LighthouseBackdrop";
-import { NavBar } from "./components/NavBar";
-import { Footer } from "./components/Footer";
 import "./globals.css";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Safe Passage — The Lighthouse for Men Navigating Life's Storms",
@@ -16,15 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" >
+    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${mono.variable}`}>
       <body>
         <LighthouseBackdrop />
         <div className="beam-wrap" aria-hidden="true">
           <div className="beam" />
         </div>
-        <NavBar />
-        <main>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

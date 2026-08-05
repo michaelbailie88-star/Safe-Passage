@@ -3,7 +3,7 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { readFile } from "fs/promises";
 import path from "path";
 import { createClient } from "@/lib/supabase/server";
-import { getProgram } from "@/lib/programs";
+import { getProgram } from "@/lib/courses";
 
 export async function GET(
   request: Request,
