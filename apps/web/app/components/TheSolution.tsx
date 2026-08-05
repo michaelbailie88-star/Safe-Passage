@@ -12,7 +12,7 @@ const pillars = [
     name: "The Logbook",
     role: "Private journaling",
     description: "Guided reflections, mood tracking, gratitude, and fatherhood reflections.",
-    href: undefined,
+    href: "/logbook",
   },
   {
     name: "The Crossing",
