@@ -38,10 +38,10 @@ export function NavBar() {
           Sign in
         </Link>
         <Link
-          href="/early-access"
+          href="/sign-up"
           className="rounded-full border border-beam-500/40 bg-beam-500/10 px-4 py-2 text-sm font-medium text-beam-400 transition hover:bg-beam-500/20"
         >
-          Get early access
+          Start free
         </Link>
       </div>
     </header>

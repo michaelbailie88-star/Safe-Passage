@@ -20,17 +20,18 @@ export function Hero() {
           The lighthouse for men navigating life&rsquo;s storms.
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-balance text-base text-fog-300 sm:text-lg">
-          Guidance, accountability, education, and brotherhood — with an
-          optional pathway for faith-based growth. No man should have to
-          navigate life&rsquo;s storms alone.
+          For men rebuilding after divorce, burnout, job loss, or
+          isolation — a private next step, not an overwhelming platform.
+          Start free with a guided program built around where you are
+          right now.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
-            href="/early-access"
+            href="/sign-up"
             className="relative z-40 w-full rounded-full bg-[#E5A526] px-7 py-3 text-sm font-semibold text-[#080D16] transition hover:bg-[#F2B84B] sm:w-auto"
           >
-            Request early access
+            Start your free program
           </Link>
           <Link
             href="/mission"
