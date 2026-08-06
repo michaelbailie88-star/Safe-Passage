@@ -5,7 +5,18 @@ import { createClient } from "@/lib/supabase/server";
 import { getProgram, programs } from "@/lib/courses";
 import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
+import { MarginQuote } from "../../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 import { ProgramWeeks } from "./ProgramWeeks";
+
+const COURSE_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
+  rebuild: "courseRebuild",
+  fatherhood: "courseFatherhood",
+  purpose: "coursePurpose",
+  relationships: "courseRelationships",
+  confidence: "courseConfidence",
+  faith: "courseFaith",
+};
 
 export function generateStaticParams() {
   return programs.map((p) => ({ slug: p.slug }));
@@ -52,6 +63,26 @@ export default async function ProgramDetailPage({
   if (!isPremium) {
     return (
       <section className="bg-storm-gradient pb-24 pt-16">
+    {(() => {
+      const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
+      return (
+        <>
+          <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
+          <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
+          <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+        </>
+      );
+    })()}
+      {(() => {
+        const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
+        return (
+          <>
+            <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
+            <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
+            <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+          </>
+        );
+      })()}
         <div className="mx-auto max-w-lg px-6">
           <BackLink href="/courses" label="Back to Courses" />
           <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">

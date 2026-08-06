@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default function ProgramsPage() {
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
-      <MarginQuote quote={pageQuotes.courses.quote} author={pageQuotes.courses.author} />
+      <MarginQuote quote={pageQuotes.coursesList.upperLeft.quote} author={pageQuotes.coursesList.upperLeft.author} position="upper-left" />
+        <MarginQuote quote={pageQuotes.coursesList.lowerLeft.quote} author={pageQuotes.coursesList.lowerLeft.author} position="lower-left" />
+        <MarginQuote quote={pageQuotes.coursesList.right.quote} author={pageQuotes.coursesList.right.author} position="right" />
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
           <BrandSeal className="mb-8" />

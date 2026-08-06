@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 export default function PlatformPage() {
   return (
     <>
-      <MarginQuote quote={pageQuotes.platform.quote} author={pageQuotes.platform.author} />
+      <MarginQuote quote={pageQuotes.platform.upperLeft.quote} author={pageQuotes.platform.upperLeft.author} position="upper-left" />
+        <MarginQuote quote={pageQuotes.platform.lowerLeft.quote} author={pageQuotes.platform.lowerLeft.author} position="lower-left" />
+        <MarginQuote quote={pageQuotes.platform.right.quote} author={pageQuotes.platform.right.author} position="right" />
       <TheSolution />
     </>
   );

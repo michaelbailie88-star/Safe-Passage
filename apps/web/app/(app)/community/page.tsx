@@ -32,7 +32,9 @@ export default async function CommunityPage() {
   if (profile?.community_banned) {
     return (
       <section className="bg-storm-gradient pb-24 pt-16">
-        <MarginQuote quote={pageQuotes.community.quote} author={pageQuotes.community.author} />
+        <MarginQuote quote={pageQuotes.community.upperLeft.quote} author={pageQuotes.community.upperLeft.author} position="upper-left" />
+        <MarginQuote quote={pageQuotes.community.lowerLeft.quote} author={pageQuotes.community.lowerLeft.author} position="lower-left" />
+        <MarginQuote quote={pageQuotes.community.right.quote} author={pageQuotes.community.right.author} position="right" />
         <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-red-500/30 bg-red-500/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-red-400">
             Community access removed
@@ -56,7 +58,9 @@ export default async function CommunityPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
-        <MarginQuote quote={pageQuotes.community.quote} author={pageQuotes.community.author} />
+        <MarginQuote quote={pageQuotes.community.upperLeft.quote} author={pageQuotes.community.upperLeft.author} position="upper-left" />
+        <MarginQuote quote={pageQuotes.community.lowerLeft.quote} author={pageQuotes.community.lowerLeft.author} position="lower-left" />
+        <MarginQuote quote={pageQuotes.community.right.quote} author={pageQuotes.community.right.author} position="right" />
       <div className="mx-auto max-w-4xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <BrandSeal className="mb-8" />

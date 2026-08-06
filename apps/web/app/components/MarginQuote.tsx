@@ -1,7 +1,21 @@
-export function MarginQuote({ quote, author }: { quote: string; author: string }) {
+const POSITION_CLASSES = {
+  "upper-left": "left-6 top-[38%] xl:left-28",
+  "lower-left": "left-6 top-[74%] xl:left-28",
+  right: "right-6 top-1/2 -translate-y-1/2 xl:right-96",
+} as const;
+
+export function MarginQuote({
+  quote,
+  author,
+  position,
+}: {
+  quote: string;
+  author: string;
+  position: "upper-left" | "lower-left" | "right";
+}) {
   return (
     <aside
-      className="pointer-events-none fixed left-6 top-1/2 z-10 hidden max-w-[200px] -translate-y-1/2 xl:left-12 xl:block"
+      className={`pointer-events-none fixed z-10 hidden max-w-[200px] xl:block ${POSITION_CLASSES[position]}`}
       aria-hidden="true"
     >
       <span className="font-display text-4xl italic text-beam-400">&ldquo;</span>

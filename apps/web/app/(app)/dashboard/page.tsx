@@ -29,7 +29,9 @@ export default async function DashboardPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
-      <MarginQuote quote={pageQuotes.dashboard.quote} author={pageQuotes.dashboard.author} />
+      <MarginQuote quote={pageQuotes.dashboard.upperLeft.quote} author={pageQuotes.dashboard.upperLeft.author} position="upper-left" />
+        <MarginQuote quote={pageQuotes.dashboard.lowerLeft.quote} author={pageQuotes.dashboard.lowerLeft.author} position="lower-left" />
+        <MarginQuote quote={pageQuotes.dashboard.right.quote} author={pageQuotes.dashboard.right.author} position="right" />
       <div className="mx-4 sm:mx-auto max-w-2xl">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

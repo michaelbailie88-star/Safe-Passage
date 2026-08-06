@@ -4,7 +4,18 @@ import { createClient } from "@/lib/supabase/server";
 import { getFreeProgram, freePrograms } from "@/lib/free-programs";
 import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
+import { MarginQuote } from "../../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 import { TaskChecklist } from "../TaskChecklist";
+
+const PROGRAM_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
+  rebuild: "programRebuild",
+  fatherhood: "programFatherhood",
+  purpose: "programPurpose",
+  relationships: "programRelationships",
+  confidence: "programConfidence",
+  faith: "programFaith",
+};
 
 export function generateStaticParams() {
   return freePrograms.map((p) => ({ slug: p.slug }));
@@ -42,6 +53,16 @@ export default async function FreeProgramDetailPage({
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      {(() => {
+        const pq = pageQuotes[PROGRAM_QUOTE_KEY[program.slug]];
+        return (
+          <>
+            <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
+            <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
+            <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+          </>
+        );
+      })()}
       <div className="mx-auto max-w-2xl px-6">
         <BackLink href="/programs" label="Back to Programs" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
