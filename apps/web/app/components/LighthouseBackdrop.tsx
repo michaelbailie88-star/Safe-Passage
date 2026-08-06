@@ -1,8 +1,8 @@
-export function LighthouseBackdrop() {
+export function LighthouseBackdrop({ topOffset = 0 }: { topOffset?: number }) {
   return (
     <div
-      className="pointer-events-none fixed inset-y-0 z-10"
-      style={{ right: "-15%" }}
+      className="pointer-events-none fixed z-10"
+      style={{ right: "-15%", top: topOffset, bottom: 0 }}
       aria-hidden="true"
     >
       <svg

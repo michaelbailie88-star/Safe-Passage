@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { TheSolution } from "../../components/TheSolution";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
   title: "The Platform — Safe Passage",
@@ -8,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function PlatformPage() {
-  return <TheSolution />;
+  return (
+    <>
+      <MarginQuote quote={pageQuotes.platform.quote} author={pageQuotes.platform.author} />
+      <TheSolution />
+    </>
+  );
 }

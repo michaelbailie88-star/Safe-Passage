@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ForWho } from "../../components/ForWho";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
   title: "Who It's For — Safe Passage",
@@ -7,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function ForWhoPage() {
-  return <ForWho />;
+  return (
+    <>
+      <MarginQuote quote={pageQuotes.forWho.quote} author={pageQuotes.forWho.author} />
+      <ForWho />
+    </>
+  );
 }

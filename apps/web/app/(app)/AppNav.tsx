@@ -36,7 +36,7 @@ export function AppNav({
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm text-fog-300 md:flex">
+        <nav className="mr-10 hidden items-center gap-6 text-sm text-fog-300 md:flex">
           <Link href="/dashboard" className="transition hover:text-mist-100">
             Dashboard
           </Link>

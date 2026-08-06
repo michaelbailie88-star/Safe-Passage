@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ForOrganizations } from "../../components/ForOrganizations";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
   title: "For Organizations — Safe Passage",
@@ -8,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function OrganizationsPage() {
-  return <ForOrganizations />;
+  return (
+    <>
+      <MarginQuote quote={pageQuotes.organizations.quote} author={pageQuotes.organizations.author} />
+      <ForOrganizations />
+    </>
+  );
 }

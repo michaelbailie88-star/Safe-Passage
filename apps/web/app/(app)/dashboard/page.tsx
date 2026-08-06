@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CheckInWidget } from "./CheckInWidget";
 import { HabitTracker } from "./HabitTracker";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 
 export default async function DashboardPage() {
   const supabase = createClient();
@@ -27,6 +29,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <MarginQuote quote={pageQuotes.dashboard.quote} author={pageQuotes.dashboard.author} />
       <div className="mx-4 sm:mx-auto max-w-2xl">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

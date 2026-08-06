@@ -26,16 +26,18 @@ export function NavDropdown({
         {label}
       </Link>
       {open && (
-        <div className="absolute left-1/2 top-full z-30 mt-2 w-56 -translate-x-1/2 rounded-2xl border border-storm-700 bg-storm-900/95 p-2 shadow-2xl backdrop-blur-xl">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="block rounded-xl px-3 py-2 text-sm text-fog-300 transition hover:bg-storm-800 hover:text-mist-100"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="absolute left-1/2 top-full z-30 w-56 -translate-x-1/2 pt-2">
+          <div className="rounded-2xl border border-storm-700 bg-storm-900/95 p-2 shadow-2xl backdrop-blur-xl">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block rounded-xl px-3 py-2 text-sm text-fog-300 transition hover:bg-storm-800 hover:text-mist-100"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>

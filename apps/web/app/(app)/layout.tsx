@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Footer } from "../components/Footer";
+import { LighthouseBackdrop } from "../components/LighthouseBackdrop";
+import { LighthouseBeam } from "../components/LighthouseBeam";
 import { AppNav } from "./AppNav";
 
 export default async function AppLayout({
@@ -34,6 +36,8 @@ export default async function AppLayout({
 
   return (
     <>
+      <LighthouseBackdrop topOffset={96} />
+      <LighthouseBeam topOffset={96} />
       <AppNav firstName={firstName} isAdmin={profile.is_admin} />
       <main>{children}</main>
       <Footer />

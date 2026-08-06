@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Mission } from "../../components/Mission";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
   title: "Mission — Safe Passage",
@@ -8,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function MissionPage() {
-  return <Mission />;
+  return (
+    <>
+      <MarginQuote quote={pageQuotes.mission.quote} author={pageQuotes.mission.author} />
+      <Mission />
+    </>
+  );
 }

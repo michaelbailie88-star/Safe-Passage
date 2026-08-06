@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BrandSeal } from "../../components/BrandSeal";
+import { MarginQuote } from "../../components/MarginQuote";
+import { pageQuotes } from "@/lib/pageQuotes";
 import { freePrograms } from "@/lib/free-programs";
 
 export const metadata: Metadata = {
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 export default function ProgramsPage() {
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <MarginQuote quote={pageQuotes.programs.quote} author={pageQuotes.programs.author} />
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
           <BrandSeal className="mb-8" />
