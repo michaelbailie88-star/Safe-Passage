@@ -60,9 +60,9 @@ body {
   background: conic-gradient(
     from 205deg at 50% 0%,
     transparent 0deg,
-    rgba(242, 184, 75, 0.2) 8deg,
-    rgba(242, 184, 75, 0.07) 16deg,
-    transparent 24deg
+    rgba(242, 184, 75, 0.55) 8deg,
+    rgba(242, 184, 75, 0.22) 16deg,
+    transparent 26deg
   );
   animation: sweep-cycle 10s ease-in-out infinite;
 }
