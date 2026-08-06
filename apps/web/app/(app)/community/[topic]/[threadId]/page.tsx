@@ -2,6 +2,7 @@ import { redirect, notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { BrandSeal } from "../../../../components/BrandSeal";
+import { BackLink } from "../../../../components/BackLink";
 import { ReportButton } from "../../ReportButton";
 import { ThreadDetail } from "./ThreadDetail";
 
@@ -44,6 +45,7 @@ export default async function ThreadPage({
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
       <div className="mx-auto max-w-2xl px-6">
+        <BackLink href={`/community/${params.topic}`} label="Back to topic" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-left shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <div className="text-center">
             <BrandSeal className="mb-6" />

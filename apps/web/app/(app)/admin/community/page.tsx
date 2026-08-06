@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { BackLink } from "../../../components/BackLink";
 import { ModerationView } from "./ModerationView";
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default async function AdminCommunityPage() {
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
       <div className="mx-auto max-w-3xl px-6">
+        <BackLink href="/admin" label="Back to Admin" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
             Admin

@@ -66,7 +66,7 @@ export default async function AdminPage() {
       .order("created_at", { ascending: false })
       .limit(20),
     admin.from("program_progress").select("user_id, program_slug"),
-    admin.from("program_task_progress").select("user_id, program_slug"),
+    admin.from("program_task_progress").select("user_id, program_slug").eq("status", "submitted"),
     admin.from("community_reports").select("*", { count: "exact", head: true }).eq("status", "pending"),
   ]);
 

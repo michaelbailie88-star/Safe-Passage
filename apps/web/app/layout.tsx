@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
-import { LighthouseBackdrop } from "./components/LighthouseBackdrop";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -37,13 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${mono.variable}`}>
-      <body>
-        <LighthouseBackdrop />
-        <div className="beam-wrap" aria-hidden="true">
-          <div className="beam" />
-        </div>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

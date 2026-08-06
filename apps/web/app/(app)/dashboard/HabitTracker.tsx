@@ -94,7 +94,12 @@ export function HabitTracker({ userId }: { userId: string }) {
   return (
     <div className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 text-left">
       <h2 className="font-display text-lg italic text-mist-50">Habits</h2>
-      <p className="mt-1 text-sm text-fog-300">Small, consistent, daily.</p>
+      <p className="mt-1 text-sm text-fog-300">
+        Small daily actions that support the man you're building toward —
+        things like a morning prayer, a call to your kid, 10 minutes of
+        exercise, or reading one page. Add your own below and check them
+        off each day you do them.
+      </p>
 
       {loading ? (
         <p className="mt-4 text-sm text-fog-300">Loading…</p>
@@ -140,7 +145,7 @@ export function HabitTracker({ userId }: { userId: string }) {
           type="text"
           value={newHabitName}
           onChange={(e) => setNewHabitName(e.target.value)}
-          placeholder="Add a habit…"
+          placeholder='e.g. "10 minutes of exercise" or "Call my kids"'
           className="flex-1 rounded-full border border-storm-700 bg-storm-800/60 px-4 py-2 text-sm text-mist-100 placeholder:text-fog-500 focus:border-beam-500"
         />
         <button

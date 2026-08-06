@@ -2,6 +2,7 @@ import { redirect, notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { BrandSeal } from "../../../components/BrandSeal";
+import { BackLink } from "../../../components/BackLink";
 import { COMMUNITY_TOPICS } from "@/lib/community/guidelines";
 import { ThreadList } from "./ThreadList";
 
@@ -44,6 +45,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
       <div className="mx-auto max-w-2xl px-6">
+        <BackLink href="/community" label="Back to The Watch" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <BrandSeal className="mb-6" />
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

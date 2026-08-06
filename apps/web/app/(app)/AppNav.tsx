@@ -1,6 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SignOutButton } from "./SignOutButton";
+import { NavDropdown } from "./NavDropdown";
+import { programs as courses } from "@/lib/courses";
+import { freePrograms } from "@/lib/free-programs";
+import { COMMUNITY_TOPICS } from "@/lib/community/guidelines";
 
 export function AppNav({
   firstName,
@@ -9,6 +13,19 @@ export function AppNav({
   firstName?: string | null;
   isAdmin?: boolean;
 }) {
+  const programItems = freePrograms.map((p) => ({
+    label: p.name,
+    href: `/programs/${p.slug}`,
+  }));
+  const courseItems = courses.map((c) => ({
+    label: c.name,
+    href: `/courses/${c.slug}`,
+  }));
+  const communityItems = [
+    { label: "Open Space", href: "/community/open" },
+    ...COMMUNITY_TOPICS.map((t) => ({ label: t.name, href: `/community/${t.slug}` })),
+  ];
+
   return (
     <header className="relative z-20 border-b border-storm-700/60 bg-storm-950/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -26,18 +43,15 @@ export function AppNav({
           <Link href="/logbook" className="transition hover:text-mist-100">
             Logbook
           </Link>
-          <Link href="/programs" className="transition hover:text-mist-100">
-            Programs
-          </Link>
-          <Link href="/courses" className="transition hover:text-mist-100">
-            Courses
-          </Link>
+          <NavDropdown label="Programs" href="/programs" items={programItems} />
+          <NavDropdown label="Courses" href="/courses" items={courseItems} />
           <Link href="/analytics" className="transition hover:text-mist-100">
             Analytics
           </Link>
-          <Link href="/community" className="transition hover:text-mist-100">
-            Community
+          <Link href="/resources" className="transition hover:text-mist-100">
+            Resources
           </Link>
+          <NavDropdown label="Community" href="/community" items={communityItems} />
           <Link href="/account" className="transition hover:text-mist-100">
             Account
           </Link>
@@ -77,6 +91,9 @@ export function AppNav({
         </Link>
         <Link href="/analytics" className="shrink-0 transition hover:text-mist-100">
           Analytics
+        </Link>
+        <Link href="/resources" className="shrink-0 transition hover:text-mist-100">
+          Resources
         </Link>
         <Link href="/community" className="shrink-0 transition hover:text-mist-100">
           Community

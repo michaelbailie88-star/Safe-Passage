@@ -34,9 +34,14 @@ export default function ProgramsPage() {
               href={`/courses/${program.slug}`}
               className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 transition hover:border-beam-500/40"
             >
-              <span className="font-mono text-xs text-fog-500">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-xs text-fog-500">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="rounded-full bg-beam-500/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-beam-400">
+                  Premium
+                </span>
+              </div>
               <h2 className="mt-3 font-display text-lg italic text-mist-50">
                 {program.name}
               </h2>

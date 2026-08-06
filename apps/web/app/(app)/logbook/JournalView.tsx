@@ -10,6 +10,25 @@ type Entry = {
   created_at: string;
 };
 
+function dateStringFrom(d: Date) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate()
+  ).padStart(2, "0")}`;
+}
+
+function calculateStreak(entryDates: string[]): number {
+  const uniqueDays = new Set(entryDates);
+  let streak = 0;
+  let cursor = dateStringFrom(new Date());
+  while (uniqueDays.has(cursor)) {
+    streak++;
+    const prev = new Date(cursor);
+    prev.setDate(prev.getDate() - 1);
+    cursor = dateStringFrom(prev);
+  }
+  return streak;
+}
+
 export function JournalView({ userId }: { userId: string }) {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,6 +36,7 @@ export function JournalView({ userId }: { userId: string }) {
   const [content, setContent] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [streak, setStreak] = useState(0);
 
   async function loadEntries() {
     const supabase = createClient();
@@ -26,6 +46,9 @@ export function JournalView({ userId }: { userId: string }) {
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
     setEntries(data ?? []);
+    if (data) {
+      setStreak(calculateStreak(data.map((e) => e.created_at.slice(0, 10))));
+    }
     setLoading(false);
   }
 
@@ -60,11 +83,19 @@ export function JournalView({ userId }: { userId: string }) {
   async function handleDelete(id: string) {
     const supabase = createClient();
     await supabase.from("journal_entries").delete().eq("id", id).eq("user_id", userId);
-    setEntries((prev) => prev.filter((e) => e.id !== id));
+    await loadEntries();
   }
 
   return (
     <div className="mt-10 space-y-6">
+      {!loading && streak > 0 && (
+        <div className="flex justify-center">
+          <span className="rounded-full border border-beam-500/40 bg-beam-500/10 px-4 py-1.5 text-xs font-semibold text-beam-400">
+            🔥 {streak} day{streak === 1 ? "" : "s"} in a row
+          </span>
+        </div>
+      )}
+
       <form
         onSubmit={handleSubmit}
         className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 text-left"
