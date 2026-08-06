@@ -7,7 +7,9 @@ import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
 import { MarginQuote } from "../../../components/MarginQuote";
 import { pageQuotes } from "@/lib/pageQuotes";
+import { getAllCourseProgress } from "@/lib/courses/progress";
 import { ProgramWeeks } from "./ProgramWeeks";
+import { ProgressMeter } from "../ProgressMeter";
 
 const COURSE_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
   rebuild: "courseRebuild",
@@ -73,16 +75,6 @@ export default async function ProgramDetailPage({
         </>
       );
     })()}
-      {(() => {
-        const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
-        return (
-          <>
-            <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
-            <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
-            <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
-          </>
-        );
-      })()}
         <div className="mx-auto max-w-lg px-6">
           <BackLink href="/courses" label="Back to Courses" />
           <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
@@ -110,8 +102,20 @@ export default async function ProgramDetailPage({
     );
   }
 
+  const courseProgress = await getAllCourseProgress(supabase, user.id);
+
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      {(() => {
+        const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
+        return (
+          <>
+            <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
+            <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
+            <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+          </>
+        );
+      })()}
       <div className="mx-auto max-w-3xl px-6">
         <BackLink href="/courses" label="Back to Courses" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
@@ -127,6 +131,15 @@ export default async function ProgramDetailPage({
             {program.introNote}
           </p>
         </div>
+
+        {courseProgress[program.slug] && (
+          <div className="mx-4 sm:mx-auto max-w-2xl">
+            <ProgressMeter
+              completedWeeks={courseProgress[program.slug].completedWeeks}
+              totalWeeks={program.weeks.length}
+            />
+          </div>
+        )}
 
         <ProgramWeeks program={program} userId={user.id} />
       </div>

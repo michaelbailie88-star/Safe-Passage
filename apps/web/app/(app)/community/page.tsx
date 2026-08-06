@@ -96,7 +96,12 @@ export default async function CommunityPage() {
               href={`/community/${topic.slug}`}
               className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 transition hover:border-fog-500/50"
             >
-              <h2 className="font-display text-lg italic text-mist-50">{topic.name}</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display text-lg italic text-mist-50">{topic.name}</h2>
+                <span className="rounded-full bg-beam-500/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-beam-400">
+                  Premium
+                </span>
+              </div>
               <p className="mt-1 text-xs uppercase tracking-wide text-fog-500">
                 Discussion group
               </p>

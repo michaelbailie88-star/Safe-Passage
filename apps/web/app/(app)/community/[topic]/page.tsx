@@ -1,5 +1,6 @@
 import { redirect, notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
@@ -34,12 +35,44 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("community_guidelines_accepted_at, community_banned, full_name")
+    .select("community_guidelines_accepted_at, community_banned, full_name, plan")
     .eq("id", user.id)
     .single();
 
   if (profile?.community_banned || !profile?.community_guidelines_accepted_at) {
     redirect("/community");
+  }
+
+  const isPremium = profile?.plan === "premium";
+
+  if (!isPremium) {
+    return (
+      <section className="bg-storm-gradient pb-24 pt-16">
+        <div className="mx-auto max-w-lg px-6">
+          <BackLink href="/community" label="Back to The Watch" />
+          <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
+            <BrandSeal className="mb-8" />
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
+              The Watch
+            </p>
+            <h1 className="mt-4 font-display text-2xl italic text-mist-50 sm:text-3xl">
+              {topic.name} is a Premium discussion group.
+            </h1>
+            <p className="mt-3 text-sm text-fog-300">
+              Open Space stays free for everyone. Topic groups like{" "}
+              {topic.name} are part of the Premium plan. Upgrade for full
+              access to all six.
+            </p>
+            <Link
+              href="/upgrade"
+              className="relative z-40 mt-8 inline-block rounded-full bg-[#E5A526] px-6 py-3 text-sm font-semibold text-[#080D16] transition hover:bg-[#F2B84B]"
+            >
+              Upgrade to Premium
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (

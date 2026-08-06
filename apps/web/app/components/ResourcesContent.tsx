@@ -63,13 +63,41 @@ export function ResourcesContent() {
           </h1>
           <p className="mt-3 text-sm text-fog-300">
             Every organization and number below is real and verified, and
-            every button is a live link — tap to call, text, or visit.
-            Safe Passage doesn&rsquo;t replace professional help — these
-            are the people who can actually provide it.
+            every button is a live link — tap to call, text, visit, or
+            download. Safe Passage doesn&rsquo;t replace professional
+            help — these are the people who can actually provide it.
           </p>
         </div>
 
         <div className="mt-12 space-y-8">
+          <div className="rounded-2xl border border-beam-500/40 bg-beam-500/5 p-6">
+            <h2 className="font-display text-lg italic text-mist-50">
+              The King James Bible
+            </h2>
+            <p className="mt-1 text-xs uppercase tracking-wide text-beam-400">
+              Old &amp; New Testament
+            </p>
+            <p className="mt-3 text-sm text-fog-300">
+              Free to read here, book by book and chapter by chapter.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href="/bible"
+                className="relative z-40 rounded-full border border-beam-500/40 bg-beam-500/10 px-4 py-1.5 text-xs font-semibold text-beam-400 transition hover:bg-beam-500/20"
+              >
+                Read here
+              </a>
+              <a
+                href="https://www.biblegateway.com/versions/King-James-Version-KJV-Bible/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-40 rounded-full border border-beam-500/40 bg-beam-500/10 px-4 py-1.5 text-xs font-semibold text-beam-400 transition hover:bg-beam-500/20"
+              >
+                biblegateway.com
+              </a>
+            </div>
+          </div>
+
           <ResourceGroup title="In Crisis Right Now">
             <Item
               name="988 Suicide & Crisis Lifeline (US & Canada)"
@@ -78,6 +106,16 @@ export function ResourcesContent() {
                 { label: "Call 988", href: "tel:988" },
                 { label: "Text 988", href: "sms:988" },
                 { label: "Quebec: Call 1-866-277-3553", href: "tel:+18662773553" },
+              ]}
+            />
+            <Item
+              name="Safety Plan (SAMHSA / 988)"
+              description="A short, fillable worksheet for writing down your own warning signs, coping strategies, and people to call before a crisis hits — designed to be filled out ahead of time, not in the moment."
+              actions={[
+                {
+                  label: "Download PDF",
+                  href: "https://www.samhsa.gov/sites/default/files/988-safety-plan.pdf",
+                },
               ]}
             />
             <Item
@@ -153,6 +191,16 @@ export function ResourcesContent() {
                 { label: "wellnesstogether.ca", href: "https://www.wellnesstogether.ca" },
               ]}
             />
+            <Item
+              name="Coping With Anger After a Difficult Event (SAMHSA)"
+              description="A short tip sheet on anger as a normal reaction to a hard event — what it can look like physically, and concrete ways to work through it."
+              actions={[
+                {
+                  label: "Download PDF",
+                  href: "https://library.samhsa.gov/sites/default/files/pep19-01-01-002_0.pdf",
+                },
+              ]}
+            />
           </ResourceGroup>
 
           <ResourceGroup title="Financial">
@@ -171,6 +219,16 @@ export function ResourcesContent() {
                 {
                   label: "creditcounsellingcanada.ca",
                   href: "https://creditcounsellingcanada.ca",
+                },
+              ]}
+            />
+            <Item
+              name="Make a Budget Worksheet (FTC / Consumer.gov)"
+              description="A one-page fillable worksheet to track what you make and what you spend, so you can see the actual gap — the same one credit counselors use as a starting point."
+              actions={[
+                {
+                  label: "Download PDF",
+                  href: "https://www.bulkorder.ftc.gov/system/files/publications/pdf-1020-make-budget-worksheet.pdf",
                 },
               ]}
             />

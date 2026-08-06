@@ -4,13 +4,34 @@ import { BrandSeal } from "../../components/BrandSeal";
 import { MarginQuote } from "../../components/MarginQuote";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { programs } from "@/lib/courses";
+import { createClient } from "@/lib/supabase/server";
+import { getAllCourseProgress } from "@/lib/courses/progress";
+import { ProgressMeter } from "./ProgressMeter";
 
 export const metadata: Metadata = {
   title: "Courses — Safe Passage",
   description: "Six guided transformation programs: Rebuild, Fatherhood, Purpose, Relationships, Confidence, and Faith.",
 };
 
-export default function ProgramsPage() {
+export default async function ProgramsPage() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isPremium = false;
+  let progress: Awaited<ReturnType<typeof getAllCourseProgress>> = {};
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("plan")
+      .eq("id", user.id)
+      .single();
+    isPremium = profile?.plan === "premium";
+    if (isPremium) {
+      progress = await getAllCourseProgress(supabase, user.id);
+    }
+  }
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
       <MarginQuote quote={pageQuotes.coursesList.upperLeft.quote} author={pageQuotes.coursesList.upperLeft.author} position="upper-left" />
@@ -56,6 +77,12 @@ export default function ProgramsPage() {
               <p className="mt-3 text-sm leading-relaxed text-fog-300">
                 {program.tagline}
               </p>
+              {isPremium && progress[program.slug] && (
+                <ProgressMeter
+                  completedWeeks={progress[program.slug].completedWeeks}
+                  totalWeeks={program.weeks.length}
+                />
+              )}
             </Link>
           ))}
         </div>
