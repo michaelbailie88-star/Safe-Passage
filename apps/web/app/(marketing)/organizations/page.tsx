@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function OrganizationsPage() {
   return (
     <>
-      <MarginQuote quote={pageQuotes.organizations.quote} author={pageQuotes.organizations.author} />
+      <MarginQuote quote={pageQuotes.organizations.quote} author={pageQuotes.organizations.author} cardWidthPx={672} />
       <ForOrganizations />
     </>
   );

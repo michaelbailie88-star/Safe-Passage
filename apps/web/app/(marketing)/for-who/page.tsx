@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ForWhoPage() {
   return (
     <>
-      <MarginQuote quote={pageQuotes.forWho.quote} author={pageQuotes.forWho.author} />
+      <MarginQuote quote={pageQuotes.forWho.quote} author={pageQuotes.forWho.author} cardWidthPx={672} />
       <ForWho />
     </>
   );

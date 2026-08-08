@@ -33,7 +33,7 @@ export default async function AccountPage() {
 
   return (
     <>
-      <MarginQuote quote={pageQuotes.account.quote} author={pageQuotes.account.author} />
+      <MarginQuote quote={pageQuotes.account.quote} author={pageQuotes.account.author} cardWidthPx={512} />
       <AccountView
         userId={user.id}
         profile={{

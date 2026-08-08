@@ -57,7 +57,7 @@ export default async function FreeProgramDetailPage({
         const pq = pageQuotes[PROGRAM_QUOTE_KEY[program.slug]];
         return (
           <>
-            <MarginQuote quote={pq.quote} author={pq.author} />
+            <MarginQuote quote={pq.quote} author={pq.author} cardWidthPx={672} />
           </>
         );
       })()}

@@ -7,7 +7,7 @@ import { pageQuotes } from "@/lib/pageQuotes";
 export default function HomePage() {
   return (
     <>
-      <MarginQuote quote={pageQuotes.home.quote} author={pageQuotes.home.author} />
+      <MarginQuote quote={pageQuotes.home.quote} author={pageQuotes.home.author} cardWidthPx={768} />
       <Hero />
       <TheProblem />
       <TrustStrip />
