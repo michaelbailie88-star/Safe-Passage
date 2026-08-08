@@ -24,22 +24,18 @@ export function MarginQuote({
 }) {
   return (
     <aside
-      className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full w-full 2xl:flex 2xl:items-center 2xl:justify-center"
+      className="pointer-events-none absolute left-0 top-0 z-10 hidden h-full 2xl:flex 2xl:items-center 2xl:justify-center"
+      style={{ width: `calc((100% - ${cardWidthPx}px) / 2)` }}
       aria-hidden="true"
     >
-      <div
-        className="flex h-full items-center justify-center"
-        style={{ width: `calc((100% - ${cardWidthPx}px) / 2)` }}
-      >
-        <div className="max-w-[340px] px-6">
-          <span className="font-display text-6xl italic text-beam-400">&ldquo;</span>
-          <p className="mt-2 font-display text-2xl italic leading-snug text-mist-100">
-            {quote}
-          </p>
-          <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
-            — {author}
-          </p>
-        </div>
+      <div className="max-w-[340px] px-6">
+        <span className="font-display text-6xl italic text-beam-400">&ldquo;</span>
+        <p className="mt-2 font-display text-2xl italic leading-snug text-mist-100">
+          {quote}
+        </p>
+        <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
+          — {author}
+        </p>
       </div>
     </aside>
   );
