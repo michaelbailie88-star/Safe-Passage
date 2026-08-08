@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 
 export default function PlatformPage() {
   return (
-    <>
-      <MarginQuote quote={pageQuotes.platform.quote} author={pageQuotes.platform.author} cardWidthPx={672} />
-      <TheSolution />
-    </>
+    <TheSolution
+      marginQuote={
+        <MarginQuote quote={pageQuotes.platform.quote} author={pageQuotes.platform.author} cardWidthPx={672} />
+      }
+    />
   );
 }

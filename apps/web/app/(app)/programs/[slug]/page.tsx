@@ -52,7 +52,7 @@ export default async function FreeProgramDetailPage({
   }
 
   return (
-    <section className="bg-storm-gradient pb-24 pt-16">
+    <section className="relative bg-storm-gradient pb-24 pt-16">
       {(() => {
         const pq = pageQuotes[PROGRAM_QUOTE_KEY[program.slug]];
         return (

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { BrandSeal } from "./BrandSeal";
 
 // PLACEHOLDER COPY — Michael will fill in real content for this section later.
@@ -5,13 +6,14 @@ import { BrandSeal } from "./BrandSeal";
 const placeholderBody =
   "Churches, employers, mental wellness organizations, family organizations, and corporate wellness programs partner with Safe Passage to support the men in their care.";
 
-export function ForOrganizations() {
+export function ForOrganizations({ marginQuote }: { marginQuote: ReactNode }) {
   return (
     <section
       id="organizations"
       aria-labelledby="organizations-heading"
-      className="border-t border-storm-700/60 bg-storm-900 pb-24 pt-32 sm:pt-40"
+      className="relative border-t border-storm-700/60 bg-storm-900 pb-24 pt-32 sm:pt-40"
     >
+      {marginQuote}
       <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
         <BrandSeal className="mb-8" />
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

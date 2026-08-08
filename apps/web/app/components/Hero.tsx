@@ -1,13 +1,15 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { BrandSeal } from "./BrandSeal";
 
-export function Hero() {
+export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
   return (
     <section
       id="top"
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-storm-gradient pb-28 pt-32 sm:pt-40"
     >
+      {marginQuote}
       <div className="relative mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
         <BrandSeal className="mb-8" />
         <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

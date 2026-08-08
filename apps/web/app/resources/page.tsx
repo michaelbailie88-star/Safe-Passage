@@ -36,10 +36,13 @@ export default async function ResourcesPage() {
       <>
         <LighthouseBackdrop topOffset={96} />
         <LighthouseBeam topOffset={96} />
-        <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>
-          <ResourcesContent />
+          <ResourcesContent
+            marginQuote={
+              <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
+            }
+          />
         </main>
         <Footer />
       </>
@@ -50,10 +53,13 @@ export default async function ResourcesPage() {
     <>
       <LighthouseBackdrop topOffset={0} />
       <LighthouseBeam topOffset={0} />
-      <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
       <NavBar />
       <main>
-        <ResourcesContent />
+        <ResourcesContent
+          marginQuote={
+            <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
+          }
+        />
       </main>
       <Footer />
     </>

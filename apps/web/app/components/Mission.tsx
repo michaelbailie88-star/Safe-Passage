@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { BrandSeal } from "./BrandSeal";
 
 const beliefs = [
@@ -9,13 +10,14 @@ const beliefs = [
   "Brotherhood changes lives.",
 ];
 
-export function Mission() {
+export function Mission({ marginQuote }: { marginQuote: ReactNode }) {
   return (
     <section
       id="mission"
       aria-label="Mission and core beliefs"
       className="relative overflow-hidden bg-storm-800/50 pb-24 pt-32 sm:pt-40"
     >
+      {marginQuote}
       <div className="mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
         <h1 className="sr-only">Mission</h1>
         <BrandSeal className="mb-8" />

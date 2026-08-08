@@ -11,9 +11,10 @@ export const metadata: Metadata = {
 
 export default function MissionPage() {
   return (
-    <>
-      <MarginQuote quote={pageQuotes.mission.quote} author={pageQuotes.mission.author} cardWidthPx={768} />
-      <Mission />
-    </>
+    <Mission
+      marginQuote={
+        <MarginQuote quote={pageQuotes.mission.quote} author={pageQuotes.mission.author} cardWidthPx={768} />
+      }
+    />
   );
 }

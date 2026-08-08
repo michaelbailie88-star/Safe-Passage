@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
@@ -24,10 +25,12 @@ export function AccountView({
   userId,
   profile,
   strikes,
+  marginQuote,
 }: {
   userId: string;
   profile: Profile;
   strikes: Strike[];
+  marginQuote: ReactNode;
 }) {
   const [fullName, setFullName] = useState(profile.full_name ?? "");
   const [age, setAge] = useState(profile.age?.toString() ?? "");
@@ -63,7 +66,8 @@ export function AccountView({
   const isPremium = profile.plan === "premium";
 
   return (
-    <section className="bg-storm-gradient pb-24 pt-16">
+    <section className="relative bg-storm-gradient pb-24 pt-16">
+      {marginQuote}
       <div className="mx-4 sm:mx-auto max-w-lg">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="text-center font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

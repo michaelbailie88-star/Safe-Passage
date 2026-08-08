@@ -32,19 +32,19 @@ export default async function AccountPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <>
-      <MarginQuote quote={pageQuotes.account.quote} author={pageQuotes.account.author} cardWidthPx={512} />
-      <AccountView
-        userId={user.id}
-        profile={{
-          full_name: profile?.full_name ?? null,
-          age: profile?.age ?? null,
-          location: profile?.location ?? null,
-          email: profile?.email ?? user.email ?? "",
-          plan: profile?.plan ?? "free",
-        }}
-        strikes={strikes ?? []}
-      />
-    </>
+    <AccountView
+      userId={user.id}
+      profile={{
+        full_name: profile?.full_name ?? null,
+        age: profile?.age ?? null,
+        location: profile?.location ?? null,
+        email: profile?.email ?? user.email ?? "",
+        plan: profile?.plan ?? "free",
+      }}
+      strikes={strikes ?? []}
+      marginQuote={
+        <MarginQuote quote={pageQuotes.account.quote} author={pageQuotes.account.author} cardWidthPx={512} />
+      }
+    />
   );
 }

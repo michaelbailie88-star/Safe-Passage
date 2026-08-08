@@ -64,7 +64,7 @@ export default async function ProgramDetailPage({
 
   if (!isPremium) {
     return (
-      <section className="bg-storm-gradient pb-24 pt-16">
+      <section className="relative bg-storm-gradient pb-24 pt-16">
     {(() => {
       const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
       return (
@@ -103,7 +103,7 @@ export default async function ProgramDetailPage({
   const courseProgress = await getAllCourseProgress(supabase, user.id);
 
   return (
-    <section className="bg-storm-gradient pb-24 pt-16">
+    <section className="relative bg-storm-gradient pb-24 pt-16">
       {(() => {
         const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
         return (

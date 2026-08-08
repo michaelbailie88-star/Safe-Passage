@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { BrandSeal } from "./BrandSeal";
 
 type Action = { label: string; href: string };
@@ -49,9 +50,10 @@ function Item({
   );
 }
 
-export function ResourcesContent() {
+export function ResourcesContent({ marginQuote }: { marginQuote: ReactNode }) {
   return (
-    <section className="bg-storm-gradient pb-24 pt-32 sm:pt-40">
+    <section className="relative bg-storm-gradient pb-24 pt-32 sm:pt-40">
+      {marginQuote}
       <div className="mx-auto max-w-4xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
           <BrandSeal className="mb-8" />

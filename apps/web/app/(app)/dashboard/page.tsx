@@ -28,7 +28,7 @@ export default async function DashboardPage() {
   const firstName = profile?.full_name?.split(" ")[0];
 
   return (
-    <section className="bg-storm-gradient pb-24 pt-16">
+    <section className="relative bg-storm-gradient pb-24 pt-16">
       <MarginQuote quote={pageQuotes.dashboard.quote} author={pageQuotes.dashboard.author} cardWidthPx={672} />
       <div className="mx-4 sm:mx-auto max-w-2xl">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
