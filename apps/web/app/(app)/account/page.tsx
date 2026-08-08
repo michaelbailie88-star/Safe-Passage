@@ -33,9 +33,7 @@ export default async function AccountPage() {
 
   return (
     <>
-      <MarginQuote quote={pageQuotes.account.upperLeft.quote} author={pageQuotes.account.upperLeft.author} position="upper-left" />
-        <MarginQuote quote={pageQuotes.account.lowerLeft.quote} author={pageQuotes.account.lowerLeft.author} position="lower-left" />
-        <MarginQuote quote={pageQuotes.account.right.quote} author={pageQuotes.account.right.author} position="right" />
+      <MarginQuote quote={pageQuotes.account.quote} author={pageQuotes.account.author} />
       <AccountView
         userId={user.id}
         profile={{

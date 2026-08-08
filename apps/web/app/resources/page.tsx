@@ -36,9 +36,7 @@ export default async function ResourcesPage() {
       <>
         <LighthouseBackdrop topOffset={96} />
         <LighthouseBeam topOffset={96} />
-        <MarginQuote quote={pageQuotes.resources.upperLeft.quote} author={pageQuotes.resources.upperLeft.author} position="upper-left" />
-        <MarginQuote quote={pageQuotes.resources.lowerLeft.quote} author={pageQuotes.resources.lowerLeft.author} position="lower-left" />
-        <MarginQuote quote={pageQuotes.resources.right.quote} author={pageQuotes.resources.right.author} position="right" />
+        <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>
           <ResourcesContent />
@@ -52,9 +50,7 @@ export default async function ResourcesPage() {
     <>
       <LighthouseBackdrop topOffset={0} />
       <LighthouseBeam topOffset={0} />
-      <MarginQuote quote={pageQuotes.resources.upperLeft.quote} author={pageQuotes.resources.upperLeft.author} position="upper-left" />
-        <MarginQuote quote={pageQuotes.resources.lowerLeft.quote} author={pageQuotes.resources.lowerLeft.author} position="lower-left" />
-        <MarginQuote quote={pageQuotes.resources.right.quote} author={pageQuotes.resources.right.author} position="right" />
+      <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} />
       <NavBar />
       <main>
         <ResourcesContent />

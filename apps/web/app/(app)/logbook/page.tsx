@@ -23,9 +23,7 @@ export default async function LogbookPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
-      <MarginQuote quote={pageQuotes.logbook.upperLeft.quote} author={pageQuotes.logbook.upperLeft.author} position="upper-left" />
-        <MarginQuote quote={pageQuotes.logbook.lowerLeft.quote} author={pageQuotes.logbook.lowerLeft.author} position="lower-left" />
-        <MarginQuote quote={pageQuotes.logbook.right.quote} author={pageQuotes.logbook.right.author} position="right" />
+      <MarginQuote quote={pageQuotes.logbook.quote} author={pageQuotes.logbook.author} />
       <div className="mx-auto max-w-2xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
           <BrandSeal className="mb-8" />

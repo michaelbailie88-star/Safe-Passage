@@ -69,9 +69,7 @@ export default async function ProgramDetailPage({
       const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
       return (
         <>
-          <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
-          <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
-          <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+          <MarginQuote quote={pq.quote} author={pq.author} />
         </>
       );
     })()}
@@ -110,9 +108,7 @@ export default async function ProgramDetailPage({
         const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
         return (
           <>
-            <MarginQuote quote={pq.upperLeft.quote} author={pq.upperLeft.author} position="upper-left" />
-            <MarginQuote quote={pq.lowerLeft.quote} author={pq.lowerLeft.author} position="lower-left" />
-            <MarginQuote quote={pq.right.quote} author={pq.right.author} position="right" />
+            <MarginQuote quote={pq.quote} author={pq.author} />
           </>
         );
       })()}
