@@ -1,6 +1,5 @@
 import { NavBar } from "../components/NavBar";
 import { Footer } from "../components/Footer";
-import { LighthouseBackdrop } from "../components/LighthouseBackdrop";
 
 export default function MarketingLayout({
   children,
@@ -9,7 +8,6 @@ export default function MarketingLayout({
 }) {
   return (
     <>
-      <LighthouseBackdrop />
       <NavBar />
       <main>{children}</main>
       <Footer />

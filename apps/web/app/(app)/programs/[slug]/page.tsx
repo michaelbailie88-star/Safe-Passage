@@ -6,6 +6,7 @@ import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
 import { MarginQuote } from "../../../components/MarginQuote";
 import { LighthouseBeam } from "../../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { TaskChecklist } from "../TaskChecklist";
 
@@ -54,6 +55,7 @@ export default async function FreeProgramDetailPage({
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
+      <LighthouseBackdrop topOffset={96} variant="soft" />
       <LighthouseBeam topOffset={96} variant="soft" />
       {(() => {
         const pq = pageQuotes[PROGRAM_QUOTE_KEY[program.slug]];

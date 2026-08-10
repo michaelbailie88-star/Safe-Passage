@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BrandSeal } from "../../components/BrandSeal";
 import { freePrograms } from "@/lib/free-programs";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 
 export const metadata: Metadata = {
   title: "Programs — Safe Passage",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function ProgramsPage() {
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBackdrop topOffset={96} variant="soft" />
       <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">

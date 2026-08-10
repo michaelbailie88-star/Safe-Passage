@@ -5,6 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { BackLink } from "../../../components/BackLink";
 import { ModerationView } from "./ModerationView";
 import { LighthouseBeam } from "../../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../../components/LighthouseBackdrop";
 
 export const metadata: Metadata = {
   title: "Community Moderation — Admin — Safe Passage",
@@ -64,6 +65,7 @@ export default async function AdminCommunityPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBackdrop topOffset={96} variant="soft" />
       <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-3xl px-6">
         <BackLink href="/admin" label="Back to Admin" />

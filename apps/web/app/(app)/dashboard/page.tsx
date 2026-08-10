@@ -5,6 +5,7 @@ import { CheckInWidget } from "./CheckInWidget";
 import { HabitTracker } from "./HabitTracker";
 import { MarginQuote } from "../../components/MarginQuote";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export default async function DashboardPage() {
@@ -30,6 +31,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
+      <LighthouseBackdrop topOffset={96} variant="full" />
       <LighthouseBeam topOffset={96} variant="full" />
       <MarginQuote quote={pageQuotes.dashboard.quote} author={pageQuotes.dashboard.author} cardWidthPx={672} />
       <div className="mx-4 sm:mx-auto max-w-2xl">

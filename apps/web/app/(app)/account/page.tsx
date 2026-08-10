@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { AccountView } from "./AccountView";
 import { MarginQuote } from "../../components/MarginQuote";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default async function AccountPage() {
 
   return (
     <>
+      <LighthouseBackdrop topOffset={96} variant="soft" />
       <LighthouseBeam topOffset={96} variant="soft" />
       <AccountView
         userId={user.id}

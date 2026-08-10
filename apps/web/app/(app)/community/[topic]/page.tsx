@@ -7,6 +7,7 @@ import { BackLink } from "../../../components/BackLink";
 import { COMMUNITY_TOPICS } from "@/lib/community/guidelines";
 import { ThreadList } from "./ThreadList";
 import { LighthouseBeam } from "../../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../../components/LighthouseBackdrop";
 
 export function generateStaticParams() {
   return COMMUNITY_TOPICS.map((t) => ({ topic: t.slug }));
@@ -49,6 +50,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   if (!isPremium) {
     return (
       <section className="bg-storm-gradient pb-24 pt-16">
+        <LighthouseBackdrop topOffset={96} variant="soft" />
         <LighthouseBeam topOffset={96} variant="soft" />
         <div className="mx-auto max-w-lg px-6">
           <BackLink href="/community" label="Back to The Watch" />
@@ -79,6 +81,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBackdrop topOffset={96} variant="soft" />
       <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-2xl px-6">
         <BackLink href="/community" label="Back to The Watch" />

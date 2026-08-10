@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mission } from "../../components/Mission";
 import { MarginQuote } from "../../components/MarginQuote";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function MissionPage() {
   return (
     <>
+      <LighthouseBackdrop variant="soft" />
       <LighthouseBeam variant="soft" />
       <Mission
         marginQuote={

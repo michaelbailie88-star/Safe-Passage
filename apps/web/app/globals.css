@@ -50,11 +50,19 @@ body {
   z-index: 30;
 }
 
-/* Soft variant: pushed behind every card/section on the page (they sit at
-   the default stacking level, so a negative z-index on this fixed element
-   reliably renders it underneath, never over readable content). */
+/* Soft variant: z-index 0 (not negative) is the deliberate fix here — a
+   negative value hid the beam behind each section's own opaque
+   bg-storm-gradient background too, not just behind cards, which is why
+   it read as a barely-visible pulse instead of a sweep. At z-index: 0,
+   normal DOM-order stacking takes over: the beam (inserted as the first
+   child of its section) paints in front of that section's own background
+   but behind every later sibling — the cards — giving a soft sweep that's
+   genuinely visible against the page while still sitting behind content.
+   left is recalculated for the soft backdrop's pulled-in right: 2% (vs.
+   full's right: -15%), using the same lamp-center formula. */
 .beam-wrap-soft {
-  z-index: -1;
+  z-index: 0;
+  left: calc(100% - 2% - 33.35vh);
 }
 
 .beam {

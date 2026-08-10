@@ -1,8 +1,23 @@
-export function LighthouseBackdrop({ topOffset = 0 }: { topOffset?: number }) {
+/**
+ * variant="full" (Home landing page, Dashboard only): right: -15% — the
+ * lighthouse sits mostly off-canvas, only a slice of it visible, matching
+ * the beam's dramatic full-sweep treatment on those two pages.
+ *
+ * variant="soft" (everywhere else): right: 2% — pulled fully onto the
+ * canvas so it isn't clipped at the page edge on pages where it's meant
+ * to read as a calm background presence rather than a dramatic cutoff.
+ */
+export function LighthouseBackdrop({
+  topOffset = 0,
+  variant = "full",
+}: {
+  topOffset?: number;
+  variant?: "full" | "soft";
+}) {
   return (
     <div
       className="pointer-events-none fixed z-10"
-      style={{ right: "-15%", top: topOffset, bottom: 0 }}
+      style={{ right: variant === "soft" ? "2%" : "-15%", top: topOffset, bottom: 0 }}
       aria-hidden="true"
     >
       <svg

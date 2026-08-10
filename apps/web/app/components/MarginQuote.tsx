@@ -28,7 +28,7 @@ export function MarginQuote({
       style={{ width: `calc((100% - ${cardWidthPx}px) / 2)` }}
       aria-hidden="true"
     >
-      <div className="max-w-[340px] px-6">
+      <div className="max-w-[340px] rounded-2xl border border-storm-700/60 bg-storm-900/40 px-7 py-8 backdrop-blur-sm">
         <span className="font-display text-6xl italic text-beam-400">&ldquo;</span>
         <p className="mt-2 font-display text-2xl italic leading-snug text-mist-100">
           {quote}

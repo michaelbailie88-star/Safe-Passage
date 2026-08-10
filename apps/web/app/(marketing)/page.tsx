@@ -3,11 +3,13 @@ import { TheProblem } from "../components/TheProblem";
 import { TrustStrip } from "../components/TrustStrip";
 import { MarginQuote } from "../components/MarginQuote";
 import { LighthouseBeam } from "../components/LighthouseBeam";
+import { LighthouseBackdrop } from "../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export default function HomePage() {
   return (
     <>
+      <LighthouseBackdrop variant="full" />
       <LighthouseBeam variant="full" />
       <Hero
         marginQuote={
