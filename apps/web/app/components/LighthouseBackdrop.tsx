@@ -1,11 +1,10 @@
 /**
- * variant="full" (Home landing page, Dashboard only): right: -15% — the
- * lighthouse sits mostly off-canvas, only a slice of it visible, matching
- * the beam's dramatic full-sweep treatment on those two pages.
- *
- * variant="soft" (everywhere else): right: 2% — pulled fully onto the
- * canvas so it isn't clipped at the page edge on pages where it's meant
- * to read as a calm background presence rather than a dramatic cutoff.
+ * The lighthouse now sits at the same horizontal position — right: 2%,
+ * fully on-canvas, not clipped at the page edge — on every page,
+ * Dashboard and Home included. `variant` is kept (rather than removing
+ * the prop and updating all 28 call sites) but no longer affects
+ * position; full vs. soft is now purely a beam-intensity distinction,
+ * handled entirely in LighthouseBeam.tsx.
  */
 export function LighthouseBackdrop({
   topOffset = 0,
@@ -17,7 +16,7 @@ export function LighthouseBackdrop({
   return (
     <div
       className="pointer-events-none fixed z-10"
-      style={{ right: variant === "soft" ? "2%" : "-15%", top: topOffset, bottom: 0 }}
+      style={{ right: "2%", top: topOffset, bottom: 0 }}
       aria-hidden="true"
     >
       <svg
