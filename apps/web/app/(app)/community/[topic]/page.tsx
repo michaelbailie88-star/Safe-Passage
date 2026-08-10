@@ -6,6 +6,7 @@ import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
 import { COMMUNITY_TOPICS } from "@/lib/community/guidelines";
 import { ThreadList } from "./ThreadList";
+import { LighthouseBeam } from "../../../components/LighthouseBeam";
 
 export function generateStaticParams() {
   return COMMUNITY_TOPICS.map((t) => ({ topic: t.slug }));
@@ -48,6 +49,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
   if (!isPremium) {
     return (
       <section className="bg-storm-gradient pb-24 pt-16">
+        <LighthouseBeam topOffset={96} variant="soft" />
         <div className="mx-auto max-w-lg px-6">
           <BackLink href="/community" label="Back to The Watch" />
           <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
@@ -77,6 +79,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-2xl px-6">
         <BackLink href="/community" label="Back to The Watch" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">

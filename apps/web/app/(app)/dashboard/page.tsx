@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { CheckInWidget } from "./CheckInWidget";
 import { HabitTracker } from "./HabitTracker";
 import { MarginQuote } from "../../components/MarginQuote";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export default async function DashboardPage() {
@@ -29,6 +30,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
+      <LighthouseBeam topOffset={96} variant="full" />
       <MarginQuote quote={pageQuotes.dashboard.quote} author={pageQuotes.dashboard.author} cardWidthPx={672} />
       <div className="mx-4 sm:mx-auto max-w-2xl">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">

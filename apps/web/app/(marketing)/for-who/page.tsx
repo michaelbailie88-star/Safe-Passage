@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ForWho } from "../../components/ForWho";
 import { MarginQuote } from "../../components/MarginQuote";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
@@ -10,10 +11,13 @@ export const metadata: Metadata = {
 
 export default function ForWhoPage() {
   return (
-    <ForWho
-      marginQuote={
-        <MarginQuote quote={pageQuotes.forWho.quote} author={pageQuotes.forWho.author} cardWidthPx={672} />
-      }
-    />
+    <>
+      <LighthouseBeam variant="soft" />
+      <ForWho
+        marginQuote={
+          <MarginQuote quote={pageQuotes.forWho.quote} author={pageQuotes.forWho.author} cardWidthPx={672} />
+        }
+      />
+    </>
   );
 }

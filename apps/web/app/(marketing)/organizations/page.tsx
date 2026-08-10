@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ForOrganizations } from "../../components/ForOrganizations";
 import { MarginQuote } from "../../components/MarginQuote";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
@@ -11,10 +12,13 @@ export const metadata: Metadata = {
 
 export default function OrganizationsPage() {
   return (
-    <ForOrganizations
-      marginQuote={
-        <MarginQuote quote={pageQuotes.organizations.quote} author={pageQuotes.organizations.author} cardWidthPx={672} />
-      }
-    />
+    <>
+      <LighthouseBeam variant="soft" />
+      <ForOrganizations
+        marginQuote={
+          <MarginQuote quote={pageQuotes.organizations.quote} author={pageQuotes.organizations.author} cardWidthPx={672} />
+        }
+      />
+    </>
   );
 }

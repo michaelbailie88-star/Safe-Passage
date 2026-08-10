@@ -4,6 +4,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { BrandSeal } from "../../components/BrandSeal";
 import { MarginQuote } from "../../components/MarginQuote";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { AnalyticsView } from "./AnalyticsView";
 
@@ -33,6 +34,7 @@ export default async function AnalyticsPage() {
   if (!isPremium) {
     return (
       <section className="relative bg-storm-gradient pb-24 pt-16">
+        <LighthouseBeam topOffset={96} variant="soft" />
         <MarginQuote quote={pageQuotes.analytics.quote} author={pageQuotes.analytics.author} cardWidthPx={512} />
         <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
           <BrandSeal className="mb-8" />
@@ -59,6 +61,7 @@ export default async function AnalyticsPage() {
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
+        <LighthouseBeam topOffset={96} variant="soft" />
         <MarginQuote quote={pageQuotes.analytics.quote} author={pageQuotes.analytics.author} cardWidthPx={672} />
       <div className="mx-auto max-w-3xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">

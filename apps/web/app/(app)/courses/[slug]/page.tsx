@@ -6,6 +6,7 @@ import { getProgram, programs } from "@/lib/courses";
 import { BrandSeal } from "../../../components/BrandSeal";
 import { BackLink } from "../../../components/BackLink";
 import { MarginQuote } from "../../../components/MarginQuote";
+import { LighthouseBeam } from "../../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { getAllCourseProgress } from "@/lib/courses/progress";
 import { ProgramWeeks } from "./ProgramWeeks";
@@ -65,6 +66,7 @@ export default async function ProgramDetailPage({
   if (!isPremium) {
     return (
       <section className="relative bg-storm-gradient pb-24 pt-16">
+    <LighthouseBeam topOffset={96} variant="soft" />
     {(() => {
       const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
       return (
@@ -104,6 +106,7 @@ export default async function ProgramDetailPage({
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
+      <LighthouseBeam topOffset={96} variant="soft" />
       {(() => {
         const pq = pageQuotes[COURSE_QUOTE_KEY[program.slug]];
         return (

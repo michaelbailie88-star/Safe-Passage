@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mission } from "../../components/Mission";
 import { MarginQuote } from "../../components/MarginQuote";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { pageQuotes } from "@/lib/pageQuotes";
 
 export const metadata: Metadata = {
@@ -11,10 +12,13 @@ export const metadata: Metadata = {
 
 export default function MissionPage() {
   return (
-    <Mission
-      marginQuote={
-        <MarginQuote quote={pageQuotes.mission.quote} author={pageQuotes.mission.author} cardWidthPx={768} />
-      }
-    />
+    <>
+      <LighthouseBeam variant="soft" />
+      <Mission
+        marginQuote={
+          <MarginQuote quote={pageQuotes.mission.quote} author={pageQuotes.mission.author} cardWidthPx={768} />
+        }
+      />
+    </>
   );
 }

@@ -29,7 +29,7 @@ export default async function BibleLayout({
     return (
       <>
         <LighthouseBackdrop topOffset={96} />
-        <LighthouseBeam topOffset={96} />
+        <LighthouseBeam topOffset={96} variant="soft" />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>{children}</main>
         <Footer />
@@ -40,7 +40,7 @@ export default async function BibleLayout({
   return (
     <>
       <LighthouseBackdrop topOffset={0} />
-      <LighthouseBeam topOffset={0} />
+      <LighthouseBeam topOffset={0} variant="soft" />
       <NavBar />
       <main>{children}</main>
       <Footer />

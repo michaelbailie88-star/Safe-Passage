@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { freePrograms } from "@/lib/free-programs";
 import { programs as courses } from "@/lib/courses";
+import { LighthouseBeam } from "../../components/LighthouseBeam";
 
 export const metadata: Metadata = {
   title: "Admin — Safe Passage",
@@ -88,6 +89,7 @@ export default async function AdminPage() {
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-5xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal-400">

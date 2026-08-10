@@ -35,7 +35,7 @@ export default async function ResourcesPage() {
     return (
       <>
         <LighthouseBackdrop topOffset={96} />
-        <LighthouseBeam topOffset={96} />
+        <LighthouseBeam topOffset={96} variant="soft" />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>
           <ResourcesContent
@@ -52,7 +52,7 @@ export default async function ResourcesPage() {
   return (
     <>
       <LighthouseBackdrop topOffset={0} />
-      <LighthouseBeam topOffset={0} />
+      <LighthouseBeam topOffset={0} variant="soft" />
       <NavBar />
       <main>
         <ResourcesContent

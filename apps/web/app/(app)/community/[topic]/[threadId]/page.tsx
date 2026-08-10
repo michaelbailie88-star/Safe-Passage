@@ -7,6 +7,7 @@ import { BackLink } from "../../../../components/BackLink";
 import { ReportButton } from "../../ReportButton";
 import { COMMUNITY_TOPICS } from "@/lib/community/guidelines";
 import { ThreadDetail } from "./ThreadDetail";
+import { LighthouseBeam } from "../../../../components/LighthouseBeam";
 
 export const metadata: Metadata = {
   title: "Thread — The Watch — Safe Passage",
@@ -42,6 +43,7 @@ export default async function ThreadPage({
     const topic = COMMUNITY_TOPICS.find((t) => t.slug === params.topic);
     return (
       <section className="bg-storm-gradient pb-24 pt-16">
+        <LighthouseBeam topOffset={96} variant="soft" />
         <div className="mx-auto max-w-lg px-6">
           <BackLink href="/community" label="Back to The Watch" />
           <div className="mx-4 sm:mx-auto max-w-lg rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
@@ -78,6 +80,7 @@ export default async function ThreadPage({
 
   return (
     <section className="bg-storm-gradient pb-24 pt-16">
+      <LighthouseBeam topOffset={96} variant="soft" />
       <div className="mx-auto max-w-2xl px-6">
         <BackLink href={`/community/${params.topic}`} label="Back to topic" />
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 text-left shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">
