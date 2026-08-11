@@ -180,6 +180,10 @@ export function JournalView({ userId }: { userId: string }) {
             <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-fog-300">
               {entry.content}
             </p>
+            <p className="mt-4 flex items-center gap-2 border-t border-storm-700/60 pt-3 text-xs text-beam-400">
+              <span aria-hidden="true">★</span>
+              I know this wasn&apos;t easy to say — I commend you.
+            </p>
           </div>
         ))}
       </div>

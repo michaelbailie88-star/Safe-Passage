@@ -22,24 +22,43 @@ export function ModerationView({ initialReports }: { initialReports: Report[] })
     report: Report,
     action: "dismiss" | "strike_1" | "strike_2" | "strike_3"
   ) {
+    if (action === "dismiss") {
+      const confirmed = window.confirm(
+        "Dismiss this report? This permanently deletes it — this can't be undone."
+      );
+      if (!confirmed) return;
+    }
+
     setBusyId(report.id);
     const supabase = createClient();
 
-    if (action !== "dismiss") {
-      const level = parseInt(action.split("_")[1], 10);
-      // Insert the strike via a server route, since strikes require the
-      // service-role client (regular users have no insert policy on
-      // community_strikes at all, by design).
-      await fetch("/api/admin/issue-strike", {
+    if (action === "dismiss") {
+      // Permanent delete via a service-role server route, same reasoning as
+      // strikes below: regular users (including admins on the client-side
+      // key) have no delete policy on community_reports, by design.
+      await fetch("/api/admin/dismiss-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: report.reported_user_id,
-          level,
-          reason: report.reason,
-        }),
+        body: JSON.stringify({ reportId: report.id }),
       });
+      setReports((prev) => prev.filter((r) => r.id !== report.id));
+      setBusyId(null);
+      return;
     }
+
+    const level = parseInt(action.split("_")[1], 10);
+    // Insert the strike via a server route, since strikes require the
+    // service-role client (regular users have no insert policy on
+    // community_strikes at all, by design).
+    await fetch("/api/admin/issue-strike", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: report.reported_user_id,
+        level,
+        reason: report.reason,
+      }),
+    });
 
     await supabase
       .from("community_reports")
