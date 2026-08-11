@@ -1,17 +1,20 @@
 /**
- * The lighthouse sits at right: 2% on every page, Dashboard and Home
- * included. `variant` is kept (rather than removing the prop and updating
- * all 28 call sites) but no longer affects position; full vs. soft is
- * now purely a beam-intensity distinction, handled entirely in
- * LighthouseBeam.tsx.
+ * Horizontal position: dead center on mobile, fixed there permanently —
+ * not a corner/edge placement anymore. right: 2% edge-anchoring is
+ * preserved unchanged at md: (768px) and up, exactly as every previous
+ * version of this file had it. See .lighthouse-backdrop-x in globals.css.
  *
  * Height comes from the --lighthouse-h CSS variable (see globals.css): a
- * small fixed size below md: (768px), the original full-remaining-
- * viewport-height formula at md: and up — via the .lighthouse-h-0 /
- * .lighthouse-h-96 class matching this page's topOffset. This element no
- * longer spans all the way to the bottom of the screen on mobile — it's
- * a small band anchored just below the header instead, so it can't keep
- * overlapping content further down the page as you scroll.
+ * small fixed size below md:, the original full-remaining-viewport-height
+ * formula at md: and up — via the .lighthouse-h-0 / .lighthouse-h-96
+ * class matching this page's topOffset. This element no longer spans all
+ * the way to the bottom of the screen on mobile — it's a small band
+ * anchored just below the header instead, so it can't keep overlapping
+ * content further down the page as you scroll.
+ *
+ * `variant` is kept (rather than removing the prop and updating all 28
+ * call sites) but doesn't affect anything here — full vs. soft is purely
+ * a beam-intensity distinction, handled entirely in LighthouseBeam.tsx.
  */
 export function LighthouseBackdrop({
   topOffset = 0,
@@ -22,8 +25,8 @@ export function LighthouseBackdrop({
 }) {
   return (
     <div
-      className={`pointer-events-none fixed z-10 ${topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0"}`}
-      style={{ right: "2%", top: topOffset, height: "var(--lighthouse-h)" }}
+      className={`pointer-events-none fixed z-10 lighthouse-backdrop-x ${topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0"}`}
+      style={{ top: topOffset, height: "var(--lighthouse-h)" }}
       aria-hidden="true"
     >
       <svg

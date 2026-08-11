@@ -43,6 +43,41 @@
   }
 }
 
+/* Horizontal position, mobile vs. desktop — these are genuinely
+   different treatments, not one formula scaled down. Mobile: dead
+   center, fixed, never moves. Desktop: unchanged from every previous
+   version of this file — still right: 2% for the backdrop, still the
+   same lampCenterFromLeft calc() for the beam's zero-size anchor point.
+
+   .lighthouse-backdrop-x is for LighthouseBackdrop's wrapper div, which
+   has real width/height (so "right: 2%" positions its actual right
+   edge). .lighthouse-beam-x is for LighthouseBeam's .beam-wrap, which is
+   a zero-size point (width:0; height:0) — its `left` value IS the exact
+   spot that point sits at; the .beam child then centers itself on that
+   point via left:50%/translateX(-50%), which is what makes 150vmax of
+   beam sweep out from one precise, stable spot instead of drifting. */
+.lighthouse-backdrop-x {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+@media (min-width: 768px) {
+  .lighthouse-backdrop-x {
+    left: auto;
+    right: 2%;
+    transform: none;
+  }
+}
+
+.lighthouse-beam-x {
+  left: 50%;
+}
+@media (min-width: 768px) {
+  .lighthouse-beam-x {
+    left: calc(100% - 2% - var(--lighthouse-h) * 0.333333);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   /* Guards against accidental horizontal scroll on narrow screens. Several
@@ -112,7 +147,7 @@ body {
   transform-origin: top center;
   background: conic-gradient(
     from 205deg at 50% 0%,
-    transparent 0deg,
+    rgba(242, 184, 75, 0.35) 0deg,
     rgba(242, 184, 75, 0.55) 8deg,
     rgba(242, 184, 75, 0.22) 16deg,
     transparent 26deg
@@ -124,7 +159,7 @@ body {
 .beam-soft {
   background: conic-gradient(
     from 205deg at 50% 0%,
-    transparent 0deg,
+    rgba(242, 184, 75, 0.12) 0deg,
     rgba(242, 184, 75, 0.18) 8deg,
     rgba(242, 184, 75, 0.07) 16deg,
     transparent 26deg
