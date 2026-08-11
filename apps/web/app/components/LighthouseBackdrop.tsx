@@ -8,6 +8,29 @@
  * lamp core, and the sweeping beam, all in LighthouseBeam.tsx — stays
  * position: fixed and visible at all times.
  *
+ * The SVG's width is capped at max-width: 100vw (see the svg element
+ * below). This isn't cosmetic — without it, on every phone, this SVG's
+ * derived width mathematically EXCEEDS the screen. Its width comes from
+ * w-auto, computed from its own height (--lighthouse-h, close to full
+ * viewport height) via its 400:600 intrinsic aspect ratio. Phone screens
+ * are taller/narrower than that 1.5:1 ratio (e.g. a 390×844 viewport:
+ * height minus header ≈ 748px, × 400/600 ≈ 499px wide — 28% wider than
+ * the 390px screen itself), so this always overflows horizontally on
+ * mobile, for any phone, not as an edge case. That overflow is what was
+ * triggering the "nav bar gets smaller" bug: html/body's overflow-x:
+ * hidden hides the ability to SCROLL to the overflow, but doesn't
+ * reliably stop position:absolute content from expanding the browser's
+ * underlying layout-viewport width calculation on mobile Safari — which
+ * uses that width to decide the page's zoom/scale, auto-zooming out to
+ * fit it, and then not zooming back in on its own. max-width: 100vw
+ * fixes this at the source: the browser then treats height as auto
+ * instead of the aspect-ratio-derived width once width hits that cap,
+ * which shrinks the whole SVG down (proportionally, using the same
+ * replaced-element sizing rules as e.g. an <img>) until it actually
+ * fits — so it can never cause that overflow in the first place. On
+ * desktop this constraint never actually engages (the derived width is
+ * comfortably under 100vw there already), so nothing changes above md:.
+ *
  * top is hardcoded to 0, NOT topOffset, despite this component still
  * taking a topOffset prop. On every page except Home, this renders
  * nested inside its own page's `<section className="relative ...">` as
@@ -26,9 +49,10 @@
  * Size is the same, full-remaining-viewport-height formula everywhere
  * (--lighthouse-h in globals.css, via the .lighthouse-h-0 /
  * .lighthouse-h-96 class matching this page's topOffset) — no
- * mobile-specific shrink. Horizontal position: dead center on mobile,
- * right: 2% edge-anchored at md: (768px) and up — see
- * .lighthouse-backdrop-x in globals.css.
+ * mobile-specific shrink; width is now self-limiting via the max-width
+ * fix above instead. Horizontal position: dead center on mobile, right:
+ * 2% edge-anchored at md: (768px) and up — see .lighthouse-backdrop-x
+ * in globals.css.
  *
  * `variant` is kept (rather than removing the prop and updating all 28
  * call sites) but doesn't affect anything here — full vs. soft is purely
@@ -49,7 +73,8 @@ export function LighthouseBackdrop({
     >
       <svg
         viewBox="0 0 400 600"
-        className="block h-full w-auto max-w-none opacity-[0.16] sm:opacity-[0.18]"
+        className="block h-full w-auto opacity-[0.16] sm:opacity-[0.18]"
+        style={{ maxWidth: "100vw" }}
         fill="none"
       >
         {/* base skirt */}
