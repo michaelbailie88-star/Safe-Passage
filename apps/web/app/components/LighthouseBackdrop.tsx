@@ -1,16 +1,34 @@
 /**
- * Horizontal position: dead center on mobile, fixed there permanently —
- * not a corner/edge placement anymore. right: 2% edge-anchoring is
- * preserved unchanged at md: (768px) and up, exactly as every previous
- * version of this file had it. See .lighthouse-backdrop-x in globals.css.
+ * The lighthouse STRUCTURE (this component) is position: absolute, not
+ * fixed — it scrolls away with the page like normal content, appearing
+ * once near the top and then scrolling out of view as the user scrolls
+ * down. That's the fix for it perpetually following the scroll and
+ * landing on top of form content further down the page: it simply isn't
+ * pinned to the viewport anymore. Only the light itself — the glow, the
+ * lamp core, and the sweeping beam, all in LighthouseBeam.tsx — stays
+ * position: fixed and visible at all times.
  *
- * Height comes from the --lighthouse-h CSS variable (see globals.css): a
- * small fixed size below md:, the original full-remaining-viewport-height
- * formula at md: and up — via the .lighthouse-h-0 / .lighthouse-h-96
- * class matching this page's topOffset. This element no longer spans all
- * the way to the bottom of the screen on mobile — it's a small band
- * anchored just below the header instead, so it can't keep overlapping
- * content further down the page as you scroll.
+ * top is hardcoded to 0, NOT topOffset, despite this component still
+ * taking a topOffset prop. On every page except Home, this renders
+ * nested inside its own page's `<section className="relative ...">` as
+ * the first child — meaning position:absolute is captured by THAT
+ * section as its containing block, not the viewport. That section
+ * already starts at the correct position via ordinary document flow
+ * (pushed down by AppNav/NavBar's own height, same as any other
+ * sibling) — so re-adding topOffset here on top of that would double
+ * the offset (192px instead of 96px on every app-shell page). On Home,
+ * the one page where this ISN'T nested in a relative section, topOffset
+ * is 0 anyway, so top:0 is correct there too either way. topOffset is
+ * still used below for height-class selection — .lighthouse-h-0 vs.
+ * .lighthouse-h-96 — which is a real, page-dependent difference; it's
+ * only the *position* math that no longer needs it.
+ *
+ * Size is the same, full-remaining-viewport-height formula everywhere
+ * (--lighthouse-h in globals.css, via the .lighthouse-h-0 /
+ * .lighthouse-h-96 class matching this page's topOffset) — no
+ * mobile-specific shrink. Horizontal position: dead center on mobile,
+ * right: 2% edge-anchored at md: (768px) and up — see
+ * .lighthouse-backdrop-x in globals.css.
  *
  * `variant` is kept (rather than removing the prop and updating all 28
  * call sites) but doesn't affect anything here — full vs. soft is purely
@@ -25,8 +43,8 @@ export function LighthouseBackdrop({
 }) {
   return (
     <div
-      className={`pointer-events-none fixed z-10 lighthouse-backdrop-x ${topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0"}`}
-      style={{ top: topOffset, height: "var(--lighthouse-h)" }}
+      className={`pointer-events-none absolute z-10 lighthouse-backdrop-x ${topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0"}`}
+      style={{ top: 0, height: "var(--lighthouse-h)" }}
       aria-hidden="true"
     >
       <svg
@@ -75,10 +93,6 @@ export function LighthouseBackdrop({
         <path d="M176 88 L200 54 L224 88 Z" fill="#8DA0B5" />
         <circle cx="200" cy="48" r="4" fill="#8DA0B5" />
       </svg>
-
-      {/* brighter light — the source the beam sweeps from */}
-      <div className="lighthouse-glow" />
-      <div className="lighthouse-lamp-core" />
     </div>
   );
 }

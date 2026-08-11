@@ -6,41 +6,26 @@
   color-scheme: dark;
 }
 
-/* --lighthouse-h drives both LighthouseBackdrop's size and LighthouseBeam's
-   origin math — one variable, so the two can never drift out of sync with
-   each other the way separate hardcoded formulas did before.
-
-   Mobile-first default: a small, fixed size. The lighthouse's width is
-   always derived from this height via its 400:600 aspect ratio — on a
-   narrow, TALL phone viewport, deriving width from "100vh minus header"
-   (the desktop formula) produces a width wider than the screen itself,
-   since phone height is huge relative to phone width. That's what caused
-   it to balloon over the whole screen and sit on top of form content.
-   Below md:, it's a genuinely smaller element instead — not a scaled-down
-   version of the desktop math.
+/* --lighthouse-h drives the lighthouse structure's size — the same,
+   full-remaining-viewport-height formula on every screen size. The
+   structure is no longer position:fixed (see LighthouseBackdrop.tsx), so
+   it scrolls away with the page like normal content instead of staying
+   pinned to the viewport — that's what stops it from perpetually
+   following the scroll and landing on top of content further down the
+   page. Only the light itself (glow, lamp core, beam sweep — all in
+   LighthouseBeam.tsx) stays position:fixed.
 
    There are only two topOffset values anywhere in this app (0 for
-   marketing pages, 96 for the app shell), so rather than trying to pass a
-   runtime topOffset prop up into a shared :root variable — which doesn't
+   marketing pages, 96 for the app shell), so rather than trying to pass
+   a runtime topOffset prop into a shared :root variable — which doesn't
    work, custom properties only inherit downward from ancestor to
-   descendant, never the other way — each gets its own class. Desktop
-   (md: and up) restores the exact pre-fix formula for each, unchanged. */
+   descendant, never the other way — each gets its own class. */
 .lighthouse-h-0 {
-  --lighthouse-h: 22vh;
-}
-@media (min-width: 768px) {
-  .lighthouse-h-0 {
-    --lighthouse-h: 100vh;
-  }
+  --lighthouse-h: 100vh;
 }
 
 .lighthouse-h-96 {
-  --lighthouse-h: 22vh;
-}
-@media (min-width: 768px) {
-  .lighthouse-h-96 {
-    --lighthouse-h: calc(100vh - 96px);
-  }
+  --lighthouse-h: calc(100vh - 96px);
 }
 
 /* Horizontal position, mobile vs. desktop — these are genuinely
@@ -192,15 +177,21 @@ body {
   }
 }
 
-/* Brighter lamp glow behind the hero, marking where the beam originates.
-   Sized down on mobile to match the smaller lighthouse; restored to the
-   original, unchanged desktop size at md:. */
+/* Brighter lamp glow — the source the beam sweeps from. Now a child of
+   .beam-wrap (LighthouseBeam.tsx) instead of LighthouseBackdrop, so it
+   stays position:fixed and visible at all times, even though the
+   lighthouse structure itself now scrolls away with the page. .beam-wrap
+   is a zero-size anchor point (width:0; height:0), already positioned
+   exactly on the lamp by LighthouseBeam's top/left calc() — so this only
+   needs to center itself ON that point (top:0, left:0, then
+   translate(-50%,-50%)), not repeat that positioning math. One size
+   everywhere — mobile and desktop both use the original values. */
 .lighthouse-glow {
   position: absolute;
-  top: 17.8%;
-  left: 50%;
-  width: 70px;
-  height: 70px;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 260px;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   background: radial-gradient(
@@ -214,32 +205,18 @@ body {
   animation: glow-pulse 4s ease-in-out infinite;
 }
 
-@media (min-width: 768px) {
-  .lighthouse-glow {
-    width: 260px;
-    height: 260px;
-  }
-}
-
 /* solid, unblurred hot core so the lamp itself reads as a bright light, not just haze */
 .lighthouse-lamp-core {
   position: absolute;
-  top: 17.8%;
-  left: 50%;
-  width: 14px;
-  height: 14px;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   background: #fff3d6;
   box-shadow: 0 0 24px 10px rgba(255, 224, 158, 0.9);
   animation: glow-pulse 4s ease-in-out infinite;
-}
-
-@media (min-width: 768px) {
-  .lighthouse-lamp-core {
-    width: 22px;
-    height: 22px;
-  }
 }
 
 @keyframes glow-pulse {
