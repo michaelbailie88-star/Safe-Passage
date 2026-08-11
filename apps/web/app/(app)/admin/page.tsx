@@ -56,6 +56,12 @@ export default async function AdminPage() {
     { data: courseProgress },
     { data: taskProgress },
     { count: pendingReports },
+    { count: guardianCount },
+    { count: totalBadHabits },
+    { count: totalResets },
+    { data: badHabitStarts },
+    { data: countryRows },
+    { count: activeLast7Days },
   ] = await Promise.all([
     admin.from("profiles").select("*", { count: "exact", head: true }),
     admin.from("profiles").select("*", { count: "exact", head: true }).eq("plan", "premium"),
@@ -64,15 +70,43 @@ export default async function AdminPage() {
     admin.from("habits").select("*", { count: "exact", head: true }),
     admin
       .from("profiles")
-      .select("email, full_name, plan, created_at")
+      .select("email, full_name, plan, created_at, country, city")
       .order("created_at", { ascending: false })
       .limit(20),
     admin.from("program_progress").select("user_id, program_slug"),
     admin.from("program_task_progress").select("user_id, program_slug").eq("status", "submitted"),
     admin.from("community_reports").select("*", { count: "exact", head: true }).eq("status", "pending"),
+    admin.from("profiles").select("*", { count: "exact", head: true }).eq("guardian_status", true),
+    admin.from("bad_habits").select("*", { count: "exact", head: true }),
+    admin.from("bad_habit_resets").select("*", { count: "exact", head: true }),
+    admin.from("bad_habits").select("started_at"),
+    admin.from("profiles").select("country").not("country", "is", null),
+    admin
+      .from("daily_checkins")
+      .select("user_id", { count: "exact", head: true })
+      .gte("checkin_date", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)),
   ]);
 
   const freeUsers = (totalUsers ?? 0) - (premiumUsers ?? 0);
+
+  const countryCounts = new Map<string, number>();
+  (countryRows ?? []).forEach((r) => {
+    const c = r.country as string;
+    countryCounts.set(c, (countryCounts.get(c) ?? 0) + 1);
+  });
+  const topCountries = [...countryCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8);
+
+  const totalDaysClean = (badHabitStarts ?? []).reduce((sum, row) => {
+    const days = Math.floor(
+      (Date.now() - new Date(row.started_at as string).getTime()) / (1000 * 60 * 60 * 24)
+    );
+    return sum + Math.max(0, days);
+  }, 0);
+  const avgDaysClean = badHabitStarts?.length
+    ? Math.round(totalDaysClean / badHabitStarts.length)
+    : 0;
 
   // Count distinct users who've completed all 8 weeks of each course, and
   // all 12 tasks of each free program.
@@ -113,7 +147,26 @@ export default async function AdminPage() {
           <StatCard label="Daily check-ins" value={totalCheckins ?? 0} />
           <StatCard label="Journal entries" value={totalJournalEntries ?? 0} />
           <StatCard label="Habits tracked" value={totalHabits ?? 0} />
+          <StatCard label="Active last 7 days" value={activeLast7Days ?? 0} />
+          <StatCard label="Guardians" value={guardianCount ?? 0} />
+          <StatCard label="Bad habits/addictions tracked" value={totalBadHabits ?? 0} />
+          <StatCard label="Total resets logged" value={totalResets ?? 0} />
+          <StatCard label="Avg. days clean (per habit)" value={avgDaysClean} />
         </div>
+
+        {topCountries.length > 0 && (
+          <div className="mt-10 rounded-2xl border border-storm-700 bg-storm-800/40 p-6">
+            <h2 className="font-display text-lg italic text-mist-50">Top countries</h2>
+            <ul className="mt-4 space-y-2 text-sm text-fog-300">
+              {topCountries.map(([country, count]) => (
+                <li key={country} className="flex justify-between">
+                  <span>{country}</span>
+                  <span className="text-signal-400">{count}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="mt-10">
           <Link
@@ -172,6 +225,7 @@ export default async function AdminPage() {
                   <th className="py-2 pr-4">Email</th>
                   <th className="py-2 pr-4">Name</th>
                   <th className="py-2 pr-4">Plan</th>
+                  <th className="py-2 pr-4">Location</th>
                   <th className="py-2">Joined</th>
                 </tr>
               </thead>
@@ -181,6 +235,11 @@ export default async function AdminPage() {
                     <td className="py-2 pr-4">{row.email}</td>
                     <td className="py-2 pr-4">{row.full_name ?? "—"}</td>
                     <td className="py-2 pr-4 capitalize">{row.plan}</td>
+                    <td className="py-2 pr-4">
+                      {row.city && row.country
+                        ? `${row.city}, ${row.country}`
+                        : row.country ?? "—"}
+                    </td>
                     <td className="py-2">
                       {new Date(row.created_at).toLocaleDateString("en-US", {
                         year: "numeric",

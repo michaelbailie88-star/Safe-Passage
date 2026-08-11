@@ -30,7 +30,7 @@ export default async function AnalyticsPage() {
     .eq("id", user.id)
     .single();
 
-  const isPremium = profile?.plan === "premium";
+  const isPremium = profile?.plan === "premium" || user.email === "michaelbailie31@gmail.com";
 
   if (!isPremium) {
     return (

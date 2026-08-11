@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CheckInWidget } from "./CheckInWidget";
 import { HabitTracker } from "./HabitTracker";
+import { BadHabitTracker } from "./BadHabitTracker";
+import { GuardianCard } from "./GuardianCard";
 import { MarginQuote } from "../../components/MarginQuote";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
@@ -69,6 +71,8 @@ export default async function DashboardPage() {
         <div className="mt-6 space-y-5">
           <CheckInWidget userId={user.id} />
           <HabitTracker userId={user.id} />
+          <BadHabitTracker userId={user.id} />
+          <GuardianCard userId={user.id} />
 
           <div className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 text-left">
             <h2 className="font-display text-lg italic text-mist-50">The Logbook</h2>

@@ -17,11 +17,26 @@ export function SignUpForm() {
     setErrorMessage("");
 
     const supabase = createClient();
+
+    // Best-effort — if this fails or returns nulls (e.g. running locally,
+    // off Vercel), signup still proceeds normally with no location set.
+    let country: string | null = null;
+    let city: string | null = null;
+    try {
+      const geoRes = await fetch("/api/geo");
+      const geo = await geoRes.json();
+      country = geo.country;
+      city = geo.city;
+    } catch {
+      // ignore — signup continues without location data
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
+        data: { country, city },
       },
     });
 

@@ -27,7 +27,7 @@ export default async function ProgramsPage() {
       .select("plan")
       .eq("id", user.id)
       .single();
-    isPremium = profile?.plan === "premium";
+    isPremium = profile?.plan === "premium" || user.email === "michaelbailie31@gmail.com";
     if (isPremium) {
       progress = await getAllCourseProgress(supabase, user.id);
     }

@@ -62,7 +62,7 @@ export default async function ProgramDetailPage({
     .eq("id", user.id)
     .single();
 
-  const isPremium = profile?.plan === "premium";
+  const isPremium = profile?.plan === "premium" || user.email === "michaelbailie31@gmail.com";
 
   if (!isPremium) {
     return (

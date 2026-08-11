@@ -73,6 +73,11 @@ export function UpgradeView() {
               <li>Advanced analytics</li>
               <li>Community groups</li>
               <li>Courses</li>
+              <li>1-on-1 matching with a Guardian mentor</li>
+              <li>Private Guardian-only community space</li>
+              <li>Downloadable program workbooks (PDF)</li>
+              <li>Early access to new courses</li>
+              <li>Priority crisis resource routing</li>
             </ul>
 
             <div className="mt-6 flex flex-col gap-2">

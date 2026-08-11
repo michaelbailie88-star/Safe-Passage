@@ -16,6 +16,32 @@ export function ProgramWeeks({
   const [pendingWeek, setPendingWeek] = useState<number | null>(null);
   const [error, setError] = useState("");
 
+  async function handleShareCertificate(slug: string, name: string) {
+    try {
+      const res = await fetch(`/api/certificate/${slug}`);
+      const blob = await res.blob();
+      const file = new File([blob], `safe-passage-${slug}-certificate.pdf`, {
+        type: "application/pdf",
+      });
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: `${name} — Safe Passage`,
+          text: `I completed ${name} on Safe Passage.`,
+        });
+        return;
+      }
+    } catch {
+      // fall through to download
+    }
+
+    const a = document.createElement("a");
+    a.href = `/api/certificate/${slug}`;
+    a.download = `safe-passage-${slug}-certificate.pdf`;
+    a.click();
+  }
+
   useEffect(() => {
     const supabase = createClient();
     supabase
@@ -93,12 +119,21 @@ export function ProgramWeeks({
             The comeback is always greater than the setback. That&rsquo;s
             worth marking.
           </p>
-          <a
-            href={`/api/certificate/${program.slug}`}
-            className="relative z-40 mt-5 inline-block rounded-full bg-[#E5A526] px-6 py-3 text-sm font-semibold text-[#080D16] transition hover:bg-[#F2B84B]"
-          >
-            Download your certificate
-          </a>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <a
+              href={`/api/certificate/${program.slug}`}
+              className="relative z-40 inline-block rounded-full bg-[#E5A526] px-6 py-3 text-sm font-semibold text-[#080D16] transition hover:bg-[#F2B84B]"
+            >
+              Download your certificate
+            </a>
+            <button
+              type="button"
+              onClick={() => handleShareCertificate(program.slug, program.name)}
+              className="relative z-40 inline-block rounded-full border border-beam-500/40 px-6 py-3 text-sm font-semibold text-beam-400 transition hover:bg-beam-500/10"
+            >
+              Share your completion
+            </button>
+          </div>
         </div>
       )}
 
