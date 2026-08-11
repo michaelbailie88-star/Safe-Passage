@@ -8,10 +8,18 @@
 
 html {
   scroll-behavior: smooth;
+  /* Guards against accidental horizontal scroll on narrow screens. Several
+     fixed-position decorative elements (the lighthouse beam sweep in
+     particular, at 150vmax) are intentionally larger than the viewport;
+     this ensures they can never introduce a horizontal scrollbar or
+     side-scroll gap on mobile. No effect on desktop unless something was
+     already overflowing, which would itself be a bug either way. */
+  overflow-x: hidden;
 }
 
 body {
   @apply bg-storm-900 text-mist-100 font-body antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -31,19 +39,15 @@ body {
    so the sweep is never clipped by a section's overflow-hidden and stays
    visible at any scroll position.
 
-   The lighthouse (.backdrop / LighthouseBackdrop) sits offset toward the
-   right edge: fixed, full viewport height, right: -15%, natural width from
-   its 400:600 viewBox aspect ratio at h-full (≈100vh * 400/600 ≈ 66.7vh).
-   Its horizontal center — where the lamp actually is — therefore sits at
-   100% - (-15%) - (66.7vh / 2) = calc(100% + 15% - 33.35vh) from the left.
-   .beam-wrap's left must match that exactly, or the light appears to
-   shine from empty space instead of the lamp. top: 17.8% is unaffected
-   by the horizontal move (vertical lamp position only). Respects
+   top and left are set inline per-page in LighthouseBeam.tsx, not here —
+   both depend on topOffset (how far the lighthouse is pushed down to
+   clear a page's header) and variant (which right-offset the matching
+   LighthouseBackdrop uses), so they have to be computed with the actual
+   runtime values rather than baked into a static class. See the comment
+   at the top of LighthouseBeam.tsx for the exact derivation. Respects
    reduced motion. */
 .beam-wrap {
   position: fixed;
-  top: 17.8%;
-  left: calc(100% + 15% - 33.35vh);
   width: 0;
   height: 0;
   pointer-events: none;
@@ -57,12 +61,9 @@ body {
    normal DOM-order stacking takes over: the beam (inserted as the first
    child of its section) paints in front of that section's own background
    but behind every later sibling — the cards — giving a soft sweep that's
-   genuinely visible against the page while still sitting behind content.
-   left is recalculated for the soft backdrop's pulled-in right: 2% (vs.
-   full's right: -15%), using the same lamp-center formula. */
+   genuinely visible against the page while still sitting behind content. */
 .beam-wrap-soft {
   z-index: 0;
-  left: calc(100% - 2% - 33.35vh);
 }
 
 .beam {
