@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { BrandSeal } from "./BrandSeal";
+import { LighthouseBackdrop } from "./LighthouseBackdrop";
+import { LighthouseBeam } from "./LighthouseBeam";
 
 // PLACEHOLDER COPY — Michael will fill in real content for this section later.
 // Carried over from the old shared ForWho/Organizations column as a starting point.
@@ -13,6 +15,8 @@ export function ForOrganizations({ marginQuote }: { marginQuote: ReactNode }) {
       aria-labelledby="organizations-heading"
       className="relative border-t border-storm-700/60 bg-storm-900 pb-24 pt-32 sm:pt-40"
     >
+      <LighthouseBackdrop variant="soft" />
+      <LighthouseBeam variant="soft" />
       {marginQuote}
       <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
         <BrandSeal className="mb-8" />

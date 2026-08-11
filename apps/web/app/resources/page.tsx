@@ -3,8 +3,6 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "../(app)/AppNav";
 import { NavBar } from "../components/NavBar";
 import { Footer } from "../components/Footer";
-import { LighthouseBackdrop } from "../components/LighthouseBackdrop";
-import { LighthouseBeam } from "../components/LighthouseBeam";
 import { MarginQuote } from "../components/MarginQuote";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { ResourcesContent } from "../components/ResourcesContent";
@@ -34,11 +32,10 @@ export default async function ResourcesPage() {
 
     return (
       <>
-        <LighthouseBackdrop topOffset={96} variant="soft" />
-        <LighthouseBeam topOffset={96} variant="soft" />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>
           <ResourcesContent
+            topOffset={96}
             marginQuote={
               <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
             }
@@ -51,11 +48,10 @@ export default async function ResourcesPage() {
 
   return (
     <>
-      <LighthouseBackdrop topOffset={0} variant="soft" />
-      <LighthouseBeam topOffset={0} variant="soft" />
       <NavBar />
       <main>
         <ResourcesContent
+          topOffset={0}
           marginQuote={
             <MarginQuote quote={pageQuotes.resources.quote} author={pageQuotes.resources.author} cardWidthPx={672} />
           }
