@@ -1,10 +1,17 @@
 /**
- * The lighthouse now sits at the same horizontal position — right: 2%,
- * fully on-canvas, not clipped at the page edge — on every page,
- * Dashboard and Home included. `variant` is kept (rather than removing
- * the prop and updating all 28 call sites) but no longer affects
- * position; full vs. soft is now purely a beam-intensity distinction,
- * handled entirely in LighthouseBeam.tsx.
+ * The lighthouse sits at right: 2% on every page, Dashboard and Home
+ * included. `variant` is kept (rather than removing the prop and updating
+ * all 28 call sites) but no longer affects position; full vs. soft is
+ * now purely a beam-intensity distinction, handled entirely in
+ * LighthouseBeam.tsx.
+ *
+ * Height comes from the --lighthouse-h CSS variable (see globals.css): a
+ * small fixed size below md: (768px), the original full-remaining-
+ * viewport-height formula at md: and up — via the .lighthouse-h-0 /
+ * .lighthouse-h-96 class matching this page's topOffset. This element no
+ * longer spans all the way to the bottom of the screen on mobile — it's
+ * a small band anchored just below the header instead, so it can't keep
+ * overlapping content further down the page as you scroll.
  */
 export function LighthouseBackdrop({
   topOffset = 0,
@@ -15,8 +22,8 @@ export function LighthouseBackdrop({
 }) {
   return (
     <div
-      className="pointer-events-none fixed z-10"
-      style={{ right: "2%", top: topOffset, bottom: 0 }}
+      className={`pointer-events-none fixed z-10 ${topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0"}`}
+      style={{ right: "2%", top: topOffset, height: "var(--lighthouse-h)" }}
       aria-hidden="true"
     >
       <svg

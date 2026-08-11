@@ -6,6 +6,43 @@
   color-scheme: dark;
 }
 
+/* --lighthouse-h drives both LighthouseBackdrop's size and LighthouseBeam's
+   origin math — one variable, so the two can never drift out of sync with
+   each other the way separate hardcoded formulas did before.
+
+   Mobile-first default: a small, fixed size. The lighthouse's width is
+   always derived from this height via its 400:600 aspect ratio — on a
+   narrow, TALL phone viewport, deriving width from "100vh minus header"
+   (the desktop formula) produces a width wider than the screen itself,
+   since phone height is huge relative to phone width. That's what caused
+   it to balloon over the whole screen and sit on top of form content.
+   Below md:, it's a genuinely smaller element instead — not a scaled-down
+   version of the desktop math.
+
+   There are only two topOffset values anywhere in this app (0 for
+   marketing pages, 96 for the app shell), so rather than trying to pass a
+   runtime topOffset prop up into a shared :root variable — which doesn't
+   work, custom properties only inherit downward from ancestor to
+   descendant, never the other way — each gets its own class. Desktop
+   (md: and up) restores the exact pre-fix formula for each, unchanged. */
+.lighthouse-h-0 {
+  --lighthouse-h: 22vh;
+}
+@media (min-width: 768px) {
+  .lighthouse-h-0 {
+    --lighthouse-h: 100vh;
+  }
+}
+
+.lighthouse-h-96 {
+  --lighthouse-h: 22vh;
+}
+@media (min-width: 768px) {
+  .lighthouse-h-96 {
+    --lighthouse-h: calc(100vh - 96px);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   /* Guards against accidental horizontal scroll on narrow screens. Several
@@ -120,13 +157,15 @@ body {
   }
 }
 
-/* Brighter lamp glow behind the hero, marking where the beam originates */
+/* Brighter lamp glow behind the hero, marking where the beam originates.
+   Sized down on mobile to match the smaller lighthouse; restored to the
+   original, unchanged desktop size at md:. */
 .lighthouse-glow {
   position: absolute;
   top: 17.8%;
   left: 50%;
-  width: 260px;
-  height: 260px;
+  width: 70px;
+  height: 70px;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   background: radial-gradient(
@@ -140,18 +179,32 @@ body {
   animation: glow-pulse 4s ease-in-out infinite;
 }
 
+@media (min-width: 768px) {
+  .lighthouse-glow {
+    width: 260px;
+    height: 260px;
+  }
+}
+
 /* solid, unblurred hot core so the lamp itself reads as a bright light, not just haze */
 .lighthouse-lamp-core {
   position: absolute;
   top: 17.8%;
   left: 50%;
-  width: 22px;
-  height: 22px;
+  width: 14px;
+  height: 14px;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   background: #fff3d6;
   box-shadow: 0 0 24px 10px rgba(255, 224, 158, 0.9);
   animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .lighthouse-lamp-core {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 @keyframes glow-pulse {

@@ -1,21 +1,18 @@
 /**
  * The beam's origin must land exactly on the lamp in LighthouseBackdrop,
- * which is now right: 2% on every page (unified — see
- * LighthouseBackdrop.tsx), fixed, full viewport height *minus topOffset*,
- * natural width from its 400:600 viewBox aspect ratio. The lamp sits at
- * the exact horizontal center of that SVG (x=200 of a 400-wide viewBox),
- * so:
+ * which is right: 2% on every page, fixed, sized by the SAME
+ * --lighthouse-h CSS variable as the backdrop (see globals.css /
+ * LighthouseBackdrop.tsx) via the matching .lighthouse-h-0 /
+ * .lighthouse-h-96 class. Using that one shared variable — rather than
+ * two separate hardcoded formulas — is what guarantees the beam's origin
+ * and the backdrop's actual size can never drift apart at any
+ * breakpoint, including the mobile-specific size introduced by this fix.
  *
- *   lampHeight = 100vh - topOffset
- *   lampWidth  = lampHeight * (400 / 600)
- *   lampCenterFromLeft = 100% - 2% - (lampWidth / 2)
+ * The lamp sits at the exact horizontal center of the backdrop SVG
+ * (x=200 of a 400-wide viewBox) and 17.8% down from its top, so:
  *
- * top: 17.8% is calibrated the same way — as a fraction of the lamp's
- * OWN height below topOffset, not the full viewport, which is why it's
- * already a calc() mixing px and vh for non-zero topOffset.
- *
- * Both top and left are computed here (not in static CSS) specifically
- * because they depend on topOffset, which is a runtime prop.
+ *   lampTop  = topOffset + lighthouseHeight * 0.178
+ *   lampLeft = 100% - 2% - (lighthouseHeight * 400/600 / 2)
  *
  * variant="full" (Home landing page, Dashboard only): the signature
  * dramatic sweep, unchanged, rendered above content. Position is now
@@ -33,17 +30,13 @@ export function LighthouseBeam({
   topOffset?: number;
   variant?: "full" | "soft";
 }) {
-  const top =
-    topOffset === 0 ? "17.8%" : `calc(${topOffset}px + (100vh - ${topOffset}px) * 0.178)`;
-
-  const left =
-    topOffset === 0
-      ? "calc(100% - 2% - 33.3333vh)"
-      : `calc(100% - 2% - (100vh - ${topOffset}px) * 0.333333)`;
+  const top = `calc(${topOffset}px + var(--lighthouse-h) * 0.178)`;
+  const left = "calc(100% - 2% - var(--lighthouse-h) * 0.333333)";
+  const heightClass = topOffset === 96 ? "lighthouse-h-96" : "lighthouse-h-0";
 
   return (
     <div
-      className={variant === "soft" ? "beam-wrap beam-wrap-soft" : "beam-wrap"}
+      className={`${heightClass} ${variant === "soft" ? "beam-wrap beam-wrap-soft" : "beam-wrap"}`}
       style={{ top, left }}
       aria-hidden="true"
     >
