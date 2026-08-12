@@ -12,6 +12,7 @@ import { pageQuotes } from "@/lib/pageQuotes";
 import { getAllCourseProgress } from "@/lib/courses/progress";
 import { ProgramWeeks } from "./ProgramWeeks";
 import { ProgressMeter } from "../ProgressMeter";
+import { FaithDeclaration } from "./FaithDeclaration";
 
 const COURSE_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
   rebuild: "courseRebuild",
@@ -133,6 +134,8 @@ export default async function ProgramDetailPage({
             {program.introNote}
           </p>
         </div>
+
+        {program.slug === "faith" && <FaithDeclaration userId={user.id} />}
 
         {courseProgress[program.slug] && (
           <div className="mx-4 sm:mx-auto max-w-2xl">
