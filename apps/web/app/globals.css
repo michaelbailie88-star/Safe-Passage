@@ -93,21 +93,27 @@ body {
 
 /* ---- Signature element: the lighthouse beam ----
    A warm shaft of light sweeps back and forth continuously, running
-   directly from the lamp down to the true bottom of the page. .beam-wrap
-   is position: absolute — the SAME containing block as LighthouseBackdrop
-   (the page's own <section className="relative ...">, or the document
-   root on Home, which wraps that page's full content top-to-bottom) — so
-   the beam scrolls in lockstep with its source instead of staying pinned
-   to a fixed spot in the viewport while the source scrolls away under it.
+   directly from the lamp. .beam-wrap is position: absolute — the SAME
+   containing block as LighthouseBackdrop (the page's own
+   <section className="relative ...">, or the document root on Home) —
+   so the beam scrolls in lockstep with its source instead of staying
+   pinned to a fixed spot in the viewport while the source scrolls away
+   under it. That's what makes it read as one continuous beam, physically
+   attached to the lamp, at every scroll position.
 
-   Reach: top (set inline, the lamp's exact position) plus bottom: 0 with
-   no explicit height is a standard CSS technique — an absolutely
-   positioned box with both top and bottom set has its height computed as
-   exactly the distance between them. Since the containing block is the
-   page's full content, that distance IS the page's true remaining
-   height below the lamp, on every page, of every length, with nothing
-   guessed or fixed. .beam then sets height: 100% to exactly fill that
-   span, so the sweep always runs the whole way down.
+   Reach is a fixed 150vmax (.beam), matching the width — deliberately
+   NOT stretched to the exact bottom of the page. That was tried (top +
+   bottom: 0 on .beam-wrap with no explicit height, height: 100% on
+   .beam) and reverted: conic-gradient's color stops are purely angular,
+   with no distance-based fade, so a wedge stretched tall while staying
+   the same width widens enormously the farther it gets from the lamp —
+   like a pie slice getting wider away from its center. On a long page
+   the wedge became so wide by mid-page that only a slice of one of its
+   two straight angled edges was ever inside the viewport, reading as a
+   hard-edged block or a flat diagonal line instead of a beam, and
+   vanishing in other places entirely. 150vmax keeps the exact square
+   proportions the wedge shape was actually tuned for — generous reach
+   on any realistic page, without distorting it.
 
    top and left are set inline per-page in LighthouseBeam.tsx, not here —
    both depend on topOffset (how far the lighthouse is pushed down to
@@ -118,8 +124,8 @@ body {
    reduced motion. */
 .beam-wrap {
   position: absolute;
-  bottom: 0;
   width: 0;
+  height: 0;
   pointer-events: none;
   z-index: 30;
 }
@@ -141,7 +147,7 @@ body {
   top: 0;
   left: 50%;
   width: 150vmax;
-  height: 100%;
+  height: 150vmax;
   transform-origin: top center;
   background: conic-gradient(
     from 205deg at 50% 0%,

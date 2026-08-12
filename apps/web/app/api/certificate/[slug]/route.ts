@@ -55,6 +55,20 @@ export async function GET(
       day: "numeric",
     });
 
+    // Closing line is specific to what each program's 8 weeks actually
+    // cover — not one generic quote reused across all six certificates.
+    const closingLines: Record<string, string> = {
+      rebuild: "You didn\u2019t wait for the ground to stop shaking. You built anyway.",
+      fatherhood:
+        "Your kids won\u2019t remember the eight weeks. They\u2019ll remember what you do differently because of them.",
+      purpose: "Not a fixed destination. A direction \u2014 and you\u2019re already moving.",
+      relationships: "Showing up better isn\u2019t a mood. It\u2019s eight weeks of practice, and it shows.",
+      confidence: "The doubt didn\u2019t disappear. It just stopped running the show.",
+      faith: "Not performed. Practiced. That\u2019s the difference, and you know it now.",
+    };
+    const closingLine =
+      closingLines[program.slug] ?? "The comeback is always greater than the setback.";
+
     // --- Build the PDF ---
     const NAVY = rgb(11 / 255, 18 / 255, 32 / 255);
     const GOLD = rgb(229 / 255, 165 / 255, 38 / 255);
@@ -115,8 +129,8 @@ export async function GET(
     const logoBottomY = height - 118;
 
     centered("SAFE PASSAGE", logoBottomY - 18, timesBold, 15);
-    centered("Certificate of Completion", logoBottomY - 55, timesBoldItalic, 28, GOLD_LIGHT);
-    centered("THIS CERTIFIES THAT", logoBottomY - 90, helvetica, 12, FOG);
+    centered("Certificate of Passage", logoBottomY - 55, timesBoldItalic, 28, GOLD_LIGHT);
+    centered("LET THIS STAND AS PROOF THAT", logoBottomY - 90, helvetica, 12, FOG);
     centered(recipientName, logoBottomY - 130, timesBoldItalic, 34);
 
     const lineY = logoBottomY - 140;
@@ -127,7 +141,7 @@ export async function GET(
       color: GOLD,
     });
 
-    centered("has successfully completed the Safe Passage program", logoBottomY - 168, helvetica, 12, FOG);
+    centered("showed up, did the work, and completed", logoBottomY - 168, helvetica, 12, FOG);
     centered(program.name.toUpperCase(), logoBottomY - 196, timesBold, 20, GOLD);
     centered(`Completed ${formattedDate}`, logoBottomY - 222, helvetica, 11, FOG);
 
@@ -136,7 +150,7 @@ export async function GET(
     page.drawLine({ start: { x: width / 2 + 20, y: fy }, end: { x: width / 2 + 90, y: fy }, thickness: 0.75, color: GOLD });
     page.drawCircle({ x: width / 2, y: fy, size: 3, color: GOLD });
 
-    centered("\u201cThe comeback is always greater than the setback.\u201d", fy - 55, timesItalic, 15);
+    centered(`\u201c${closingLine}\u201d`, fy - 55, timesItalic, 15);
     centered("safepassage.com  \u00b7  The Lighthouse for Men Navigating Life's Storms", fy - 77, helvetica, 9, FOG);
 
     const pdfBytes = await pdfDoc.save();

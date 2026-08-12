@@ -14,33 +14,29 @@
  * lockstep with its source at every scroll position, like a real beam
  * of light physically attached to the lamp.
  *
- * Reach: .beam-wrap sets top (the lamp's exact position, computed below)
- * and bottom: 0 (in globals.css) with no explicit height — an absolutely
- * positioned box with both top and bottom set has its height computed as
- * exactly the distance between them. Since the containing block is the
- * page's full content, that distance IS the true remaining page height
- * below the lamp, on every page, of every length — nothing guessed or
- * fixed. .beam then sets height: 100% to exactly fill that span, so the
- * sweep always runs the whole way down to the bottom of the page.
+ * Reach: fixed at 150vmax (square, matching the width) — not stretched
+ * to the literal bottom of the page. That was tried (top + bottom: 0 on
+ * .beam-wrap, height: 100% on .beam) and reverted: conic-gradient's
+ * color stops are purely angular, with no distance-based fade, so a
+ * wedge stretched tall while staying the same width widens enormously
+ * the farther it gets from the lamp — like a pie slice getting wider
+ * away from its center. On a long page the wedge became so wide by
+ * mid-page that only a slice of one of its two straight angled edges
+ * was ever inside the viewport, reading as a hard-edged block or a flat
+ * diagonal line instead of a beam, and vanishing in other places
+ * entirely. 150vmax keeps the exact square proportions the wedge shape
+ * was actually tuned for — generous reach on any realistic page, without
+ * distorting it.
  *
- * Horizontal position: dead center on mobile, fixed there permanently.
- * At md: (768px) and up, restores the exact original formula — the
- * beam's zero-size anchor point sits wherever lands its center exactly
- * on the lamp's true position, right: 2% edge-anchored, unchanged from
- * every previous version of this file. This value never actually
- * depended on topOffset (only --lighthouse-h, itself already a CSS
- * variable), so it lives entirely in a static CSS class —
- * .lighthouse-beam-x in globals.css — instead of a JS template string.
- *
- * .beam-wrap is a zero-width point (width:0), stretched top-to-bottom
- * per above, at the lamp's true horizontal position. The glow, lamp-core,
- * and beam are all children centered on that SAME horizontal point (glow/
- * lamp-core via top:0/left:0 + translate(-50%, -50%); beam via top:0/
- * left:50% + translateX(-50%), since it extends outward rather than
- * sitting centered on the point) — one shared anchor, so all three
- * pieces of "the light" can never drift apart from each other, or from
- * where the (now identically-scrolling) lighthouse structure happens to
- * currently be.
+ * .beam-wrap is a zero-size point (width: 0; height: 0) at the lamp's
+ * true position, NOT stretched top-to-bottom. The glow, lamp-core, and
+ * beam are all children centered on that SAME point (glow/lamp-core via
+ * top:0/left:0 + translate(-50%, -50%); beam via top:0/left:50% +
+ * translateX(-50%), since it extends outward rather than sitting
+ * centered on the point) — one shared anchor, so all three pieces of
+ * "the light" can never drift apart from each other, or from where the
+ * (now identically-scrolling) lighthouse structure happens to currently
+ * be.
  *
  *   lampTop = topOffset + lighthouseHeight * 0.178
  *
