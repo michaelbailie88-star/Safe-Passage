@@ -37,7 +37,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("community_guidelines_accepted_at, community_banned, full_name, plan")
+    .select("community_guidelines_accepted_at, community_banned, full_name, plan, is_admin")
     .eq("id", user.id)
     .single();
 
@@ -45,7 +45,7 @@ export default async function TopicPage({ params }: { params: { topic: string } 
     redirect("/community");
   }
 
-  const isPremium = profile?.plan === "premium";
+  const isPremium = profile?.plan === "premium" || profile?.is_admin === true;
 
   if (!isPremium) {
     return (

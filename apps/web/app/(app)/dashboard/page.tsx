@@ -24,11 +24,11 @@ export default async function DashboardPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("plan, subscription_status, full_name")
+    .select("plan, subscription_status, full_name, is_admin")
     .eq("id", user.id)
     .single();
 
-  const isPremium = profile?.plan === "premium";
+  const isPremium = profile?.plan === "premium" || profile?.is_admin === true;
   const firstName = profile?.full_name?.split(" ")[0];
 
   return (

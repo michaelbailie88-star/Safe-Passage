@@ -30,7 +30,9 @@ export default function ProgramsPage() {
             <Link href="/courses" className="text-beam-400 underline underline-offset-2">
               The full 8-week Courses
             </Link>{" "}
-            are a Premium feature.
+            are a Premium feature — and the only ones that count toward
+            Guardian status. These free programs are a taster, not a
+            substitute.
           </p>
         </div>
 

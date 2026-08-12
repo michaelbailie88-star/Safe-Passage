@@ -13,6 +13,7 @@ type Profile = {
   location: string | null;
   email: string;
   plan: string;
+  is_admin: boolean;
 };
 
 type Strike = { level: number; created_at: string };
@@ -65,7 +66,7 @@ export function AccountView({
     setSaving(false);
   }
 
-  const isPremium = profile.plan === "premium";
+  const isPremium = profile.plan === "premium" || profile.is_admin === true;
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">

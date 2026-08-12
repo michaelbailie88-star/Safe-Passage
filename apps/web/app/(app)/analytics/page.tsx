@@ -26,11 +26,11 @@ export default async function AnalyticsPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("plan")
+    .select("plan, is_admin")
     .eq("id", user.id)
     .single();
 
-  const isPremium = profile?.plan === "premium" || user.email === "michaelbailie31@gmail.com";
+  const isPremium = profile?.plan === "premium" || profile?.is_admin === true;
 
   if (!isPremium) {
     return (

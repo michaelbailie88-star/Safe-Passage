@@ -21,7 +21,7 @@ export default async function AccountPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name, age, location, email, plan")
+    .select("full_name, age, location, email, plan, is_admin")
     .eq("id", user.id)
     .single();
 
@@ -40,6 +40,7 @@ export default async function AccountPage() {
         location: profile?.location ?? null,
         email: profile?.email ?? user.email ?? "",
         plan: profile?.plan ?? "free",
+        is_admin: profile?.is_admin ?? false,
       }}
       strikes={strikes ?? []}
       marginQuote={

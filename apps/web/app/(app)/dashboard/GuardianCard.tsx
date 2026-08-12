@@ -136,8 +136,9 @@ export function GuardianCard({ userId }: { userId: string }) {
     <div className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 text-left">
       <h2 className="font-display text-lg italic text-mist-50">Guardian status</h2>
       <p className="mt-1 text-sm text-fog-300">
-        Complete all six programs to earn your Guardian badge and the
-        chance to guide the next man who's still lost.
+        Complete all six 8-week Courses (not the free taster Programs) to
+        earn your Guardian badge and the chance to guide the next man
+        who&rsquo;s still lost.
       </p>
       <p className="mt-4 font-display text-2xl text-signal-400">
         {completedCount} of 6 complete

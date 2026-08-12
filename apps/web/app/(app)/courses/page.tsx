@@ -10,7 +10,7 @@ import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 
 export const metadata: Metadata = {
   title: "Courses — Safe Passage",
-  description: "Six guided transformation programs: Rebuild, Fatherhood, Purpose, Relationships, Confidence, and Faith.",
+  description: "Six guided transformation courses: Rebuild, Fatherhood, Purpose, Relationships, Confidence, and Faith.",
 };
 
 export default async function ProgramsPage() {
@@ -24,10 +24,10 @@ export default async function ProgramsPage() {
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("plan")
+      .select("plan, is_admin")
       .eq("id", user.id)
       .single();
-    isPremium = profile?.plan === "premium" || user.email === "michaelbailie31@gmail.com";
+    isPremium = profile?.plan === "premium" || profile?.is_admin === true;
     if (isPremium) {
       progress = await getAllCourseProgress(supabase, user.id);
     }
@@ -43,12 +43,17 @@ export default async function ProgramsPage() {
             Courses
           </p>
           <h1 className="mt-4 font-display text-2xl italic text-mist-50 sm:text-3xl">
-            Six programs. Eight weeks each. Real change.
+            Six 8-week courses. Real change.
           </h1>
           <p className="mt-3 text-sm text-fog-300">
-            Each program ends with a certificate — not because it proves
+            Each course ends with a certificate — not because it proves
             anything to anyone else, but because you&rsquo;ll know what it
-            took to earn it.
+            took to earn it. Complete all six and you&rsquo;re eligible for
+            Guardian status — the free{" "}
+            <Link href="/programs" className="text-beam-400 underline underline-offset-2">
+              taster Programs
+            </Link>{" "}
+            don&rsquo;t count toward it, only these do.
           </p>
         </div>
 
