@@ -65,12 +65,13 @@
 
 html {
   scroll-behavior: smooth;
-  /* Guards against accidental horizontal scroll on narrow screens. Several
-     fixed-position decorative elements (the lighthouse beam sweep in
-     particular, at 150vmax) are intentionally larger than the viewport;
-     this ensures they can never introduce a horizontal scrollbar or
-     side-scroll gap on mobile. No effect on desktop unless something was
-     already overflowing, which would itself be a bug either way. */
+  /* Guards against accidental horizontal scroll on narrow screens. The
+     lighthouse beam sweep (150vmax wide, so it can rotate through its
+     full arc without visibly clipping) is intentionally wider than the
+     viewport; this ensures it can never introduce a horizontal
+     scrollbar or side-scroll gap on mobile. No effect on desktop unless
+     something was already overflowing, which would itself be a bug
+     either way. */
   overflow-x: hidden;
 }
 
@@ -91,10 +92,22 @@ body {
 }
 
 /* ---- Signature element: the lighthouse beam ----
-   A warm shaft of light sweeps back and forth continuously across the
-   ENTIRE page (not just the hero). .beam-wrap is fixed to the viewport
-   so the sweep is never clipped by a section's overflow-hidden and stays
-   visible at any scroll position.
+   A warm shaft of light sweeps back and forth continuously, running
+   directly from the lamp down to the true bottom of the page. .beam-wrap
+   is position: absolute — the SAME containing block as LighthouseBackdrop
+   (the page's own <section className="relative ...">, or the document
+   root on Home, which wraps that page's full content top-to-bottom) — so
+   the beam scrolls in lockstep with its source instead of staying pinned
+   to a fixed spot in the viewport while the source scrolls away under it.
+
+   Reach: top (set inline, the lamp's exact position) plus bottom: 0 with
+   no explicit height is a standard CSS technique — an absolutely
+   positioned box with both top and bottom set has its height computed as
+   exactly the distance between them. Since the containing block is the
+   page's full content, that distance IS the page's true remaining
+   height below the lamp, on every page, of every length, with nothing
+   guessed or fixed. .beam then sets height: 100% to exactly fill that
+   span, so the sweep always runs the whole way down.
 
    top and left are set inline per-page in LighthouseBeam.tsx, not here —
    both depend on topOffset (how far the lighthouse is pushed down to
@@ -104,9 +117,9 @@ body {
    at the top of LighthouseBeam.tsx for the exact derivation. Respects
    reduced motion. */
 .beam-wrap {
-  position: fixed;
+  position: absolute;
+  bottom: 0;
   width: 0;
-  height: 0;
   pointer-events: none;
   z-index: 30;
 }
@@ -128,7 +141,7 @@ body {
   top: 0;
   left: 50%;
   width: 150vmax;
-  height: 150vmax;
+  height: 100%;
   transform-origin: top center;
   background: conic-gradient(
     from 205deg at 50% 0%,
