@@ -177,19 +177,17 @@ body {
   }
 }
 
-/* Brighter lamp glow — the source the beam sweeps from. Now a child of
-   .beam-wrap (LighthouseBeam.tsx) instead of LighthouseBackdrop, so it
-   stays position:fixed and visible at all times, even though the
-   lighthouse structure itself now scrolls away with the page. .beam-wrap
-   is a zero-size anchor point (width:0; height:0), already positioned
-   exactly on the lamp by LighthouseBeam's top/left calc() — so this only
-   needs to center itself ON that point (top:0, left:0, then
-   translate(-50%,-50%)), not repeat that positioning math. One size
-   everywhere — mobile and desktop both use the original values. */
+/* Brighter lamp glow — the source the beam sweeps from. Back inside the
+   structure (LighthouseBackdrop.tsx) so it travels with the lighthouse
+   and scrolls away with it, rather than staying pinned to the viewport.
+   Positioned at the same point the SVG's lamp room sits — 17.8% down,
+   horizontally centered — matching where the structure's own lamp room
+   renders. One size everywhere — mobile and desktop both use the
+   original values. */
 .lighthouse-glow {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 17.8%;
+  left: 50%;
   width: 260px;
   height: 260px;
   transform: translate(-50%, -50%);
@@ -208,8 +206,8 @@ body {
 /* solid, unblurred hot core so the lamp itself reads as a bright light, not just haze */
 .lighthouse-lamp-core {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 17.8%;
+  left: 50%;
   width: 22px;
   height: 22px;
   transform: translate(-50%, -50%);

@@ -1,13 +1,9 @@
 /**
- * This component now renders the ENTIRE light source, not just the
- * sweep — the lamp glow and its bright core (previously in
- * LighthouseBackdrop) moved here, because they need to stay position:
- * fixed and visible at all times, same as the beam. The lighthouse
- * STRUCTURE (the SVG silhouette in LighthouseBackdrop) is now position:
- * absolute instead, and scrolls away with the page — so "the light"
- * (this component) and "the lighthouse" (the structure) are
- * deliberately no longer pinned together. This is what the user asked
- * for: the structure doesn't chase the scroll, only the light does.
+ * This renders ONLY the beam sweep now. The lamp glow and its bright
+ * core moved back into LighthouseBackdrop, so the bright center light
+ * stays fixed to the lighthouse structure and scrolls away with it —
+ * only the sweep itself remains position: fixed, ambient, and
+ * independent of scroll.
  *
  * Horizontal position: dead center on mobile, fixed there permanently.
  * At md: (768px) and up, restores the exact original formula — the
@@ -58,8 +54,6 @@ export function LighthouseBeam({
       aria-hidden="true"
     >
       <div className={variant === "soft" ? "beam beam-soft" : "beam"} />
-      <div className="lighthouse-glow" />
-      <div className="lighthouse-lamp-core" />
     </div>
   );
 }

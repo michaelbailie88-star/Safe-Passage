@@ -91,6 +91,15 @@ export function HabitTracker({ userId }: { userId: string }) {
     }
   }
 
+  async function handleDeleteHabit(habitId: string, habitName: string) {
+    const confirmed = window.confirm(`Delete "${habitName}"? This can't be undone.`);
+    if (!confirmed) return;
+
+    const supabase = createClient();
+    await supabase.from("habits").update({ archived: true }).eq("id", habitId);
+    setHabits((prev) => prev.filter((h) => h.id !== habitId));
+  }
+
   return (
     <div className="rounded-2xl border border-storm-700 bg-storm-800/40 p-6 text-left">
       <h2 className="font-display text-lg italic text-mist-50">Habits</h2>
@@ -111,11 +120,11 @@ export function HabitTracker({ userId }: { userId: string }) {
           {habits.map((habit) => {
             const done = completedToday.has(habit.id);
             return (
-              <li key={habit.id}>
+              <li key={habit.id} className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => toggleHabit(habit.id)}
-                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
+                  className={`flex flex-1 items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
                     done
                       ? "border-signal-500/40 bg-signal-500/10 text-signal-400"
                       : "border-storm-700 text-mist-100 hover:border-fog-500/50"
@@ -129,6 +138,14 @@ export function HabitTracker({ userId }: { userId: string }) {
                     {done && "✓"}
                   </span>
                   {habit.name}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteHabit(habit.id, habit.name)}
+                  aria-label={`Delete ${habit.name}`}
+                  className="shrink-0 rounded-full border border-storm-700 p-2 text-fog-500 transition hover:border-red-500/40 hover:text-red-400"
+                >
+                  ✕
                 </button>
               </li>
             );

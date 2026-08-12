@@ -118,6 +118,11 @@ export function LighthouseBackdrop({
         <path d="M176 88 L200 54 L224 88 Z" fill="#8DA0B5" />
         <circle cx="200" cy="48" r="4" fill="#8DA0B5" />
       </svg>
+
+      {/* the bright center light — now travels with the structure, not
+          the viewport, per the fix requested */}
+      <div className="lighthouse-glow" />
+      <div className="lighthouse-lamp-core" />
     </div>
   );
 }

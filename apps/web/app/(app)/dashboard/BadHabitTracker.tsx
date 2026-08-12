@@ -137,6 +137,15 @@ export function BadHabitTracker({ userId }: { userId: string }) {
     await loadHabits();
   }
 
+  async function handleDeleteHabit(habitId: string, habitName: string) {
+    const confirmed = window.confirm(`Delete "${habitName}"? This can't be undone.`);
+    if (!confirmed) return;
+
+    const supabase = createClient();
+    await supabase.from("bad_habits").update({ archived: true }).eq("id", habitId);
+    setHabits((prev) => prev.filter((h) => h.id !== habitId));
+  }
+
   function longestStreakDays(habit: BadHabit): number {
     const habitResets = resets
       .filter((r) => r.bad_habit_id === habit.id)
@@ -207,6 +216,13 @@ export function BadHabitTracker({ userId }: { userId: string }) {
                       className="rounded-full border border-red-500/30 px-3 py-1.5 text-xs text-red-400 hover:bg-red-500/10"
                     >
                       I slipped
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteHabit(habit.id, habit.name)}
+                      className="rounded-full border border-storm-700 px-3 py-1.5 text-xs text-fog-500 hover:border-red-500/40 hover:text-red-400"
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>
