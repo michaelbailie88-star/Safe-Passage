@@ -8,6 +8,7 @@ import { programs as courses } from "@/lib/courses";
 import { LighthouseBeam } from "../../components/LighthouseBeam";
 import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 import { ListenerSeedControl } from "./ListenerSeedControl";
+import { ListenerTestMatch } from "./ListenerTestMatch";
 
 export const metadata: Metadata = {
   title: "Admin — Safe Passage",
@@ -257,6 +258,7 @@ export default async function AdminPage() {
 
         <div className="mt-8 max-w-6xl">
           <ListenerSeedControl />
+          <ListenerTestMatch />
         </div>
       </div>
     </section>
