@@ -6,10 +6,12 @@ import { embed } from "@/lib/listener/voyage";
 /**
  * Visit this once (signed in as admin) after VOYAGE_API_KEY is set in
  * Vercel, to generate embeddings for every trigger phrase currently in
- * listener_responses. Safe to re-run: it only embeds responses that
- * don't already have embeddings (so adding new content later and
- * re-visiting this URL only costs tokens for the new rows, not a full
- * re-embed of everything).
+ * listener_responses. Safe to re-run: it diffs each response's current
+ * trigger_examples against what's already embedded for that response
+ * and only embeds the phrases that are missing — so adding new phrases
+ * to an already-seeded response, or adding a brand-new response, both
+ * work correctly on re-run without re-embedding anything that already
+ * has a vector.
  */
 export async function POST() {
   try {
@@ -34,17 +36,21 @@ export async function POST() {
 
     const admin = createAdminClient();
 
-    // Only responses with no rows yet in listener_trigger_embeddings —
-    // this is what makes re-running safe after adding new content later.
-    const { data: alreadyEmbedded, error: existingError } = await admin
+    // Per-response, per-phrase diff — not just "has this response ever
+    // been embedded." A response can gain new trigger_examples after
+    // its first seed pass; this makes sure those new phrases still get
+    // embedded, while phrases already embedded are never redone.
+    const { data: existingEmbeddings, error: existingError } = await admin
       .from("listener_trigger_embeddings")
-      .select("response_id");
+      .select("response_id, trigger_text");
 
     if (existingError) {
       return NextResponse.json({ error: existingError.message }, { status: 500 });
     }
 
-    const embeddedResponseIds = new Set((alreadyEmbedded ?? []).map((r) => r.response_id));
+    const embeddedPhraseKeys = new Set(
+      (existingEmbeddings ?? []).map((r) => `${r.response_id}::${r.trigger_text}`)
+    );
 
     const { data: responses, error: fetchError } = await admin
       .from("listener_responses")
@@ -55,23 +61,21 @@ export async function POST() {
       return NextResponse.json({ error: fetchError.message }, { status: 500 });
     }
 
-    const pending = (responses ?? []).filter((r) => !embeddedResponseIds.has(r.id));
-
-    if (pending.length === 0) {
-      return NextResponse.json({
-        success: true,
-        message: "Nothing to embed — every active response already has embeddings.",
-        embedded: 0,
-      });
+    const pairs: { response_id: string; trigger_text: string }[] = [];
+    for (const r of responses ?? []) {
+      for (const trigger of r.trigger_examples as string[]) {
+        if (!embeddedPhraseKeys.has(`${r.id}::${trigger}`)) {
+          pairs.push({ response_id: r.id, trigger_text: trigger });
+        }
+      }
     }
 
-    // Flatten to (response_id, trigger_text) pairs, keeping order aligned
-    // so the returned embedding vectors can be matched back correctly.
-    const pairs: { response_id: string; trigger_text: string }[] = [];
-    for (const r of pending) {
-      for (const trigger of r.trigger_examples as string[]) {
-        pairs.push({ response_id: r.id, trigger_text: trigger });
-      }
+    if (pairs.length === 0) {
+      return NextResponse.json({
+        success: true,
+        message: "Nothing to embed — every trigger phrase on every active response already has an embedding.",
+        embedded: 0,
+      });
     }
 
     const vectors = await embed(
@@ -91,9 +95,11 @@ export async function POST() {
       return NextResponse.json({ error: insertError.message }, { status: 500 });
     }
 
+    const respondedResponseIds = new Set(pairs.map((p) => p.response_id));
+
     return NextResponse.json({
       success: true,
-      responsesEmbedded: pending.length,
+      responsesTouched: respondedResponseIds.size,
       triggerPhrasesEmbedded: rows.length,
     });
   } catch (err) {

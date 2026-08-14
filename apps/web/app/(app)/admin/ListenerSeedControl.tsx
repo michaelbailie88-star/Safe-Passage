@@ -21,7 +21,7 @@ export function ListenerSeedControl() {
       setMessage(
         data.embedded === 0
           ? data.message
-          : `Embedded ${data.triggerPhrasesEmbedded} trigger phrases across ${data.responsesEmbedded} responses.`
+          : `Embedded ${data.triggerPhrasesEmbedded} trigger phrases across ${data.responsesTouched} responses.`
       );
     } catch (err) {
       setStatus("error");

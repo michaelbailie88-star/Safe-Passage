@@ -7,9 +7,13 @@ import { embedOne } from "./voyage";
 // still safe, still-never-advises response, plus the real resource
 // links). A borderline general-topic match costs more relatively
 // speaking (a confidently-wrong-feeling reply to an ordinary question),
-// so that bar stays higher. Both are starting points — tune once real
-// message data exists to calibrate against, not treated as final.
-const CRISIS_THRESHOLD = 0.55;
+// so that bar stays higher.
+// CRISIS_THRESHOLD tuned down from 0.55 → 0.48 (Aug 2026) against a
+// real test battery: benign messages scored ~0.30-0.34, genuine crisis
+// paraphrases scored ~0.45-0.53 — 0.55 was sitting inside real signal,
+// missing messages like "I'm so stressed about money I don't even want
+// to be here anymore" (0.524) and "got handed a subpoena" (0.491).
+const CRISIS_THRESHOLD = 0.48;
 const GENERAL_THRESHOLD = 0.72;
 
 export type MatchResult =
