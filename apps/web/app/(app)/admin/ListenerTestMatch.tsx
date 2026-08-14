@@ -38,7 +38,11 @@ type TestResult = {
         similarity: number;
         lowConfidence: boolean;
       }
-    | { matched: false; reason: string };
+    | {
+        matched: false;
+        reason: string;
+        bestCandidate?: { similarity: number; threshold: number; category: string; crisisType: string | null };
+      };
 };
 
 export function ListenerTestMatch() {
@@ -113,7 +117,16 @@ export function ListenerTestMatch() {
                   <p className="mt-1 text-fog-500 italic">&quot;{r.result.responseText}&quot;</p>
                 </>
               ) : (
-                <p className="mt-1 text-fog-500">No match ({r.result.reason})</p>
+                <>
+                  <p className="mt-1 text-fog-500">No match ({r.result.reason})</p>
+                  {r.result.bestCandidate && (
+                    <p className="mt-1 text-xs text-fog-600">
+                      Closest was {r.result.bestCandidate.category}
+                      {r.result.bestCandidate.crisisType ? ` / ${r.result.bestCandidate.crisisType}` : ""} at{" "}
+                      {r.result.bestCandidate.similarity.toFixed(3)} (needed {r.result.bestCandidate.threshold})
+                    </p>
+                  )}
+                </>
               )}
             </div>
           ))}

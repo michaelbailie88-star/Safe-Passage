@@ -22,7 +22,15 @@ export type MatchResult =
       similarity: number;
       lowConfidence: boolean; // true = matched, but below the "confident" line — still returned, but worth flagging for review
     }
-  | { matched: false; reason: "no_candidates" | "below_threshold" };
+  | {
+      matched: false;
+      reason: "no_candidates" | "below_threshold";
+      // Diagnostic only — the closest candidate found, even though it
+      // didn't clear the bar. Never shown to end users, exists so the
+      // matcher's behavior can be inspected/tuned against real threshold
+      // numbers instead of guessing why something didn't match.
+      bestCandidate?: { similarity: number; threshold: number; category: string; crisisType: string | null };
+    };
 
 /**
  * Given a live user message, finds the best pre-written listener
@@ -74,6 +82,19 @@ export async function matchMessage(userMessage: string): Promise<MatchResult> {
   // disclosure" should resolve toward the safer read.
   let best: { id: string; text: string; category: string; crisisType: string | null; similarity: number; threshold: number } | null = null;
 
+  // Diagnostic only, tracked in parallel — the single closest candidate
+  // by raw similarity regardless of whether it cleared its threshold.
+  // Does not participate in winner selection above in any way.
+  let closestOverall: { similarity: number; threshold: number; category: string; crisisType: string | null } | null = null;
+
+  for (const r of responses) {
+    const rawSimilarity = bestByResponse.get(r.id)!;
+    const rawThreshold = r.category === "crisis" ? CRISIS_THRESHOLD : GENERAL_THRESHOLD;
+    if (!closestOverall || rawSimilarity > closestOverall.similarity) {
+      closestOverall = { similarity: rawSimilarity, threshold: rawThreshold, category: r.category, crisisType: r.crisis_type };
+    }
+  }
+
   for (const r of responses) {
     const similarity = bestByResponse.get(r.id)!;
     const threshold = r.category === "crisis" ? CRISIS_THRESHOLD : GENERAL_THRESHOLD;
@@ -92,7 +113,7 @@ export async function matchMessage(userMessage: string): Promise<MatchResult> {
   }
 
   if (!best) {
-    return { matched: false, reason: "below_threshold" };
+    return { matched: false, reason: "below_threshold", bestCandidate: closestOverall ?? undefined };
   }
 
   // "Confident" means comfortably clear of the threshold, not just
