@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Footer } from "../components/Footer";
 import { AppNav } from "./AppNav";
+import { ListenerWidget } from "./ListenerWidget";
 
 export default async function AppLayout({
   children,
@@ -37,6 +38,7 @@ export default async function AppLayout({
       <AppNav firstName={firstName} isAdmin={profile.is_admin} />
       <main>{children}</main>
       <Footer />
+      <ListenerWidget />
     </>
   );
 }
