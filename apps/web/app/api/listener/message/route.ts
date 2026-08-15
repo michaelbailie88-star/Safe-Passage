@@ -76,16 +76,20 @@ export async function POST(request: Request) {
       matchedResponseId = result.responseId;
       matchConfidence = result.similarity;
       flagged = result.lowConfidence;
-      flagReason = result.lowConfidence ? "low_confidence" : null;
+      flagReason = result.lowConfidence ? "low_confidence_match" : null;
     } else {
       responseText = FALLBACK_TEXT;
       flagged = true;
-      flagReason = result.reason;
+      // "no_candidates" and "below_threshold" are internal match.ts
+      // reason codes — the flag_reason column's check constraint only
+      // allows "no_match" for this case (also: "crisis_detected",
+      // "low_confidence_match", "manual_review" for other cases).
+      flagReason = "no_match";
     }
 
     const { error: assistantMessageError } = await supabase.from("listener_messages").insert({
       session_id: sessionId,
-      role: "assistant",
+      role: "listener",
       content: responseText,
       matched_response_id: matchedResponseId,
       match_confidence: matchConfidence,
