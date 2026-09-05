@@ -10,7 +10,8 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
       className="relative overflow-hidden bg-storm-gradient pb-28 pt-32 sm:pt-40"
     >
       {marginQuote}
-      <div className="rise-in relative mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
+      <div className="hero-stars" aria-hidden="true" />
+      <div className="rise-in relative mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-beam-500/25 bg-white/5 px-6 py-12 text-center shadow-[0_40px_90px_-20px_rgba(0,0,0,0.7),0_0_80px_-30px_rgba(242,184,75,0.35)] backdrop-blur-xl sm:px-12 sm:py-16 card-topline">
         <BrandSeal className="mb-8" />
         <p className="rise-in rise-d1 mb-6 font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
           Position holding · Safe Passage
@@ -19,7 +20,7 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
           id="hero-heading"
           className="rise-in rise-d1 font-display text-4xl italic leading-[1.15] text-mist-50 sm:text-5xl md:text-6xl"
         >
-          The lighthouse for men navigating life&rsquo;s storms.
+          The lighthouse for men navigating <span className="text-glow-amber">life&rsquo;s storms.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-balance text-base text-fog-300 sm:text-lg">
           For men rebuilding after divorce, burnout, job loss, or

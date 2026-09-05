@@ -26,7 +26,7 @@ export function TheProblem() {
           id="the-problem-heading"
           className="mt-4 font-display text-2xl text-mist-50 sm:text-3xl"
         >
-          Millions of men are weathering this silently.
+          Millions of men are weathering this <span className="text-glow-amber not-italic">silently.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-fog-300">
           Many don&rsquo;t seek help because existing solutions feel

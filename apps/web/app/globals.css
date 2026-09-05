@@ -379,3 +379,88 @@ body::after {
   .rise-in, .storm-stars, .listener-fab, .typing-dots span { animation: none !important; }
   .card-glow:hover { transform: none; }
 }
+
+/* ==========================================================================
+   Visible-at-rest transformation pass
+   ========================================================================== */
+
+/* Hero sky: a dense starfield INSIDE the hero section, over the storm
+   gradient, under the card — plus a warm horizon glow near the lamp. */
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 18%, rgba(233, 238, 244, 0.85), transparent 60%),
+    radial-gradient(1.2px 1.2px at 18% 44%, rgba(191, 217, 255, 0.7), transparent 60%),
+    radial-gradient(2px 2px at 27% 12%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(1.3px 1.3px at 36% 62%, rgba(233, 238, 244, 0.6), transparent 60%),
+    radial-gradient(1.6px 1.6px at 44% 28%, rgba(242, 184, 75, 0.65), transparent 60%),
+    radial-gradient(1.2px 1.2px at 52% 8%, rgba(191, 217, 255, 0.75), transparent 60%),
+    radial-gradient(1.8px 1.8px at 61% 40%, rgba(255, 255, 255, 0.8), transparent 60%),
+    radial-gradient(1.2px 1.2px at 68% 66%, rgba(233, 238, 244, 0.55), transparent 60%),
+    radial-gradient(1.5px 1.5px at 74% 16%, rgba(191, 217, 255, 0.7), transparent 60%),
+    radial-gradient(1.1px 1.1px at 82% 50%, rgba(233, 238, 244, 0.5), transparent 60%),
+    radial-gradient(2.2px 2.2px at 90% 26%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 95% 70%, rgba(242, 184, 75, 0.55), transparent 60%),
+    radial-gradient(1.2px 1.2px at 15% 80%, rgba(191, 217, 255, 0.5), transparent 60%),
+    radial-gradient(1.6px 1.6px at 55% 84%, rgba(233, 238, 244, 0.5), transparent 60%),
+    radial-gradient(1.1px 1.1px at 3% 55%, rgba(233, 238, 244, 0.55), transparent 60%),
+    radial-gradient(1.4px 1.4px at 47% 48%, rgba(255, 255, 255, 0.6), transparent 60%);
+  animation: hero-stars-twinkle 6s ease-in-out infinite alternate;
+}
+.hero-stars::after {
+  content: "";
+  position: absolute;
+  top: -12%;
+  right: -6%;
+  width: 46%;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 184, 75, 0.16), transparent 65%);
+  filter: blur(30px);
+}
+@keyframes hero-stars-twinkle {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+/* Amber headline accent with its own light */
+.text-glow-amber {
+  color: #F2B84B;
+  text-shadow: 0 0 34px rgba(242, 184, 75, 0.5);
+}
+
+/* Warm hairline across the top of a hero/panel card */
+.card-topline {
+  position: relative;
+}
+.card-topline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242, 184, 75, 0.7), transparent);
+}
+
+/* Global marketing stars: brighter, so every page's sky reads */
+.storm-stars {
+  background-image:
+    radial-gradient(1.6px 1.6px at 12% 22%, rgba(233, 238, 244, 0.7), transparent 60%),
+    radial-gradient(1.4px 1.4px at 34% 68%, rgba(242, 184, 75, 0.6), transparent 60%),
+    radial-gradient(1.8px 1.8px at 58% 14%, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.3px 1.3px at 71% 52%, rgba(191, 217, 255, 0.7), transparent 60%),
+    radial-gradient(1.6px 1.6px at 88% 30%, rgba(233, 238, 244, 0.6), transparent 60%),
+    radial-gradient(1.3px 1.3px at 45% 86%, rgba(191, 217, 255, 0.55), transparent 60%),
+    radial-gradient(1.7px 1.7px at 6% 74%, rgba(255, 255, 255, 0.55), transparent 60%),
+    radial-gradient(1.2px 1.2px at 80% 82%, rgba(242, 184, 75, 0.55), transparent 60%),
+    radial-gradient(1.4px 1.4px at 24% 40%, rgba(233, 238, 244, 0.5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 64% 76%, rgba(191, 217, 255, 0.55), transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stars { animation: none; }
+}
