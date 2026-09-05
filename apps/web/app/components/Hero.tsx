@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { BrandSeal } from "./BrandSeal";
-import { WaveSound } from "./WaveSound";
 
 export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
   return (
@@ -13,11 +12,6 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
       <div className="hero-cine-bg" aria-hidden="true" />
       <div className="storm-clouds" aria-hidden="true" />
       <div className="hero-stars" aria-hidden="true" />
-      <div className="hero-waves" aria-hidden="true">
-        <span className="wave wave-1" />
-        <span className="wave wave-2" />
-        <span className="wave wave-3" />
-      </div>
 
       {marginQuote}
 
@@ -54,8 +48,6 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
           </Link>
         </div>
       </div>
-
-      <WaveSound />
     </section>
   );
 }

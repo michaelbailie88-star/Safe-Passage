@@ -33,9 +33,11 @@ export function MarginQuote({
         <p className="mt-2 font-display text-2xl italic leading-snug text-mist-100">
           {quote}
         </p>
-        <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
-          — {author}
-        </p>
+        {author ? (
+          <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
+            — {author}
+          </p>
+        ) : null}
       </div>
     </aside>
   );

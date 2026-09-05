@@ -609,3 +609,167 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .hero-cine-bg, .storm-clouds, .wave, .hero-waves::after { animation: none !important; }
 }
+
+/* ==========================================================================
+   THE LIVING STORM — site-wide scene (waves, active lighthouse, rain,
+   lightning) + synthesized audio (surf, crashes, horn, thunder)
+   ========================================================================== */
+
+/* Crashing waves riding the bottom of the viewport on marketing pages */
+.ss-waves {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 150px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Distant, ACTIVE lighthouse on the right — real photo tower blended in,
+   glowing lamp, and a beam that actually sweeps the sky both ways */
+.ss-lighthouse {
+  position: fixed;
+  right: 2.5%;
+  bottom: 120px;
+  width: 150px;
+  z-index: 1;
+  pointer-events: none;
+}
+.ss-lighthouse img {
+  width: 100%;
+  display: block;
+  mix-blend-mode: screen;
+  filter: saturate(1.05) brightness(1.02);
+}
+.ss-lamp {
+  position: absolute;
+  left: 50%;
+  top: 25.5%;
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  background: #FFE09E;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 30px 12px rgba(255, 224, 158, 0.85);
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+.ss-beam {
+  position: absolute;
+  left: 50%;
+  top: 25.5%;
+  width: 46vw;
+  height: 70px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(255, 224, 158, 0.5), rgba(242, 184, 75, 0.16) 42%, transparent 78%);
+  clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 60%);
+  filter: blur(5px);
+  animation: ss-sweep 9s ease-in-out infinite alternate;
+}
+.ss-beam-left {
+  transform-origin: left center;
+  animation: ss-sweep-left 9s ease-in-out infinite alternate;
+}
+@keyframes ss-sweep {
+  from { transform: translateY(-50%) rotate(-13deg); }
+  to { transform: translateY(-50%) rotate(11deg); }
+}
+@keyframes ss-sweep-left {
+  from { transform: translateY(-50%) scaleX(-1) rotate(-11deg); }
+  to { transform: translateY(-50%) scaleX(-1) rotate(13deg); }
+}
+
+/* Rain on glass: two drifting streak layers, different speeds/angles */
+.ss-rain {
+  position: fixed;
+  top: -25%;
+  left: -5%;
+  right: -5%;
+  height: 150%;
+  z-index: 60;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    102deg,
+    transparent 0,
+    transparent 34px,
+    rgba(191, 217, 255, 0.045) 34px,
+    rgba(191, 217, 255, 0.045) 35.5px
+  );
+  animation: rain-fall 1.15s linear infinite;
+}
+.ss-rain-b {
+  background-image: repeating-linear-gradient(
+    97deg,
+    transparent 0,
+    transparent 21px,
+    rgba(191, 217, 255, 0.07) 21px,
+    rgba(191, 217, 255, 0.07) 22px
+  );
+  animation-duration: 0.72s;
+  opacity: 0.8;
+}
+@keyframes rain-fall {
+  to { transform: translateY(16.6%); }
+}
+
+/* Lightning: full-sky flash, JS-triggered in double-blink bursts */
+.ss-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse 90% 70% at 35% 0%, rgba(226, 238, 255, 0.95), rgba(150, 185, 255, 0.35) 45%, transparent 78%);
+}
+.ss-flash-go {
+  animation: ss-flash 0.55s ease-out;
+}
+@keyframes ss-flash {
+  0% { opacity: 0; }
+  12% { opacity: 0.85; }
+  26% { opacity: 0.12; }
+  42% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+/* Storm sound toggle, global */
+.ss-sound {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 90;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7688A0;
+  background: rgba(11, 18, 32, 0.6);
+  border: 1px solid rgba(141, 160, 181, 0.3);
+  border-radius: 9999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.ss-sound:hover { color: #E9EEF4; border-color: rgba(233, 238, 244, 0.6); }
+.ss-sound-on {
+  color: #F2B84B;
+  border-color: rgba(242, 184, 75, 0.55);
+  box-shadow: 0 0 16px rgba(242, 184, 75, 0.3);
+}
+
+/* Hero photo is now the open storm sea (the live lighthouse is layered in) */
+.hero-cine-bg {
+  background: url('/images/storm-sea.jpg') center 35% / cover no-repeat;
+}
+
+@media (max-width: 768px) {
+  .ss-lighthouse { width: 96px; right: 1%; bottom: 100px; }
+  .ss-beam { width: 60vw; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ss-rain, .ss-beam, .ss-beam-left, .ss-lamp { animation: none !important; }
+  .ss-flash { display: none; }
+}

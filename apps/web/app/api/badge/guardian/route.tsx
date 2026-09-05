@@ -115,7 +115,7 @@ export async function GET() {
                 textTransform: "uppercase",
               }}
             >
-              A Guardian to the Still Lost
+              A Guardian of the Passage
             </span>
           </div>
 
@@ -129,6 +129,18 @@ export async function GET() {
             }}
           >
             {recipientName}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              marginTop: "16px",
+              fontSize: "19px",
+              color: GOLD_LIGHT,
+              fontStyle: "italic",
+            }}
+          >
+            You became the light you once looked for.
           </div>
 
           <div
