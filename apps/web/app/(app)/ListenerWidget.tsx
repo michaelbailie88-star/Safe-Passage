@@ -8,6 +8,13 @@ type Message = {
   resources?: { label: string; href: string }[];
 };
 
+const SUGGESTED_PROMPTS = [
+  "I'm carrying a lot right now",
+  "I feel alone in this",
+  "I'm angry and I don't know why",
+  "My marriage is under strain",
+];
+
 export function ListenerWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -19,10 +26,10 @@ export function ListenerWidget() {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, isOpen]);
+  }, [messages, isOpen, isSending]);
 
-  async function handleSend() {
-    const trimmed = input.trim();
+  async function send(text: string) {
+    const trimmed = text.trim();
     if (!trimmed || isSending) return;
 
     setError(null);
@@ -56,6 +63,10 @@ export function ListenerWidget() {
     }
   }
 
+  function handleSend() {
+    send(input);
+  }
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -66,9 +77,17 @@ export function ListenerWidget() {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-24 right-4 z-50 flex h-[32rem] w-[22rem] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-storm-700 bg-storm-900 shadow-2xl sm:right-6">
+        <div className="fixed bottom-24 right-4 z-50 flex h-[34rem] w-[23rem] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-beam-500/20 bg-storm-900 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8),0_0_50px_-18px_rgba(242,184,75,0.35)] sm:right-6">
           <div className="flex items-center justify-between border-b border-storm-700 bg-storm-800/60 px-4 py-3">
-            <span className="font-display text-base italic text-mist-50">The Listener</span>
+            <div className="flex items-center gap-2.5">
+              <span className="beacon-dot inline-block h-2 w-2 rounded-full bg-beam-400 shadow-[0_0_10px_rgba(242,184,75,0.9)]" />
+              <div>
+                <span className="font-display text-base italic text-mist-50">The Listener</span>
+                <p className="text-[10px] uppercase tracking-[0.18em] text-fog-500">
+                  Pre-written support, always on
+                </p>
+              </div>
+            </div>
             <button
               onClick={() => setIsOpen(false)}
               aria-label="Close"
@@ -87,9 +106,24 @@ export function ListenerWidget() {
 
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
             {messages.length === 0 && (
-              <p className="mt-2 text-sm leading-relaxed text-fog-300">
-                Say what&apos;s going on. There&apos;s no wrong way to start.
-              </p>
+              <div className="mt-2">
+                <p className="text-sm leading-relaxed text-fog-300">
+                  Say what&apos;s going on. There&apos;s no wrong way to start — or
+                  begin with one of these:
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {SUGGESTED_PROMPTS.map((prompt) => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => send(prompt)}
+                      className="chip-prompt"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
             {messages.map((m, i) => (
               <div key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
@@ -119,7 +153,12 @@ export function ListenerWidget() {
                 </div>
               </div>
             ))}
-            {isSending && <p className="text-xs text-fog-500">The Listener is finding the right response…</p>}
+            {isSending && (
+              <p className="flex items-center gap-2 text-xs text-fog-500">
+                <span className="typing-dots" aria-hidden="true"><span /><span /><span /></span>
+                The Listener is finding the right response…
+              </p>
+            )}
             {error && <p className="text-xs text-rose-400">{error}</p>}
           </div>
 
@@ -149,7 +188,7 @@ export function ListenerWidget() {
       <button
         onClick={() => setIsOpen((v) => !v)}
         aria-label={isOpen ? "Close The Listener" : "Open The Listener"}
-        className="fixed bottom-6 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-beam-500 text-[#080D16] shadow-lg transition hover:bg-beam-400 sm:right-6"
+        className="listener-fab fixed bottom-6 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-beam-500 text-[#080D16] shadow-lg transition hover:bg-beam-400 sm:right-6"
       >
         {isOpen ? (
           <span className="text-xl">✕</span>

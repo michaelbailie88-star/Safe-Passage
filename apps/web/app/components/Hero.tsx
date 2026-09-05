@@ -10,14 +10,14 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
       className="relative overflow-hidden bg-storm-gradient pb-28 pt-32 sm:pt-40"
     >
       {marginQuote}
-      <div className="relative mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
+      <div className="rise-in relative mx-4 sm:mx-auto max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
         <BrandSeal className="mb-8" />
-        <p className="mb-6 font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
+        <p className="rise-in rise-d1 mb-6 font-mono text-xs uppercase tracking-[0.25em] text-signal-400">
           Position holding · Safe Passage
         </p>
         <h1
           id="hero-heading"
-          className="font-display text-4xl italic leading-[1.15] text-mist-50 sm:text-5xl md:text-6xl"
+          className="rise-in rise-d1 font-display text-4xl italic leading-[1.15] text-mist-50 sm:text-5xl md:text-6xl"
         >
           The lighthouse for men navigating life&rsquo;s storms.
         </h1>

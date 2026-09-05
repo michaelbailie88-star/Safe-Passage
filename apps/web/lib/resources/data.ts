@@ -270,6 +270,50 @@ export const resourceGroups: ResourceGroupData[] = [
         actions: [{ label: "fatherhood.org", href: "https://www.fatherhood.org" }],
         region: "US",
       },
+      {
+        key: "dad-central-canada",
+        name: "Dad Central (Canada)",
+        description: "Free fatherhood courses, tip sheets, and a dad-specific community across Canada.",
+        actions: [{ label: "dadcentral.ca", href: "https://www.dadcentral.ca" }],
+        region: "CA",
+      },
+    ],
+  },
+  {
+    title: "Built for Men",
+    items: [
+      {
+        key: "headsupguys",
+        name: "HeadsUpGuys",
+        description:
+          "The leading online resource built specifically for men with depression — self-check tools, recovery stories from real men, and practical action plans. Free.",
+        actions: [{ label: "headsupguys.org", href: "https://headsupguys.org" }],
+        crisisTypes: ["general_mental_health"],
+      },
+      {
+        key: "man-therapy",
+        name: "Man Therapy",
+        description:
+          "Mental health tools for men, delivered with humor instead of clinical language — covers stress, anger, substance use, and when to reach out.",
+        actions: [{ label: "mantherapy.org", href: "https://mantherapy.org" }],
+        crisisTypes: ["general_mental_health", "anger_control"],
+      },
+      {
+        key: "movember-mens-health",
+        name: "Movember — Men's Health",
+        description:
+          "Global men's health charity with plain-language guides on mental health, staying connected, and spotting when a friend is struggling.",
+        actions: [{ label: "movember.com", href: "https://www.movember.com" }],
+      },
+      {
+        key: "face-it-foundation",
+        name: "Face It Foundation (US)",
+        description:
+          "Men's depression support — free peer groups, one-on-one peer support, and a men's-only online community.",
+        actions: [{ label: "faceitfoundation.org", href: "https://www.faceitfoundation.org" }],
+        crisisTypes: ["general_mental_health"],
+        region: "US",
+      },
     ],
   },
 ];

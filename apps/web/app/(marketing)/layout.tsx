@@ -8,6 +8,7 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <div className="storm-stars" aria-hidden="true" />
       <NavBar />
       <main>{children}</main>
       <Footer />
