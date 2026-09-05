@@ -464,3 +464,148 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .hero-stars { animation: none; }
 }
+
+/* ==========================================================================
+   Cinematic hero: real storm, rushing clouds, crashing waves, surf sound
+   ========================================================================== */
+
+.hero-cine {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0 170px;
+  background: #080D16;
+}
+
+/* The photograph: realistic lighthouse storm */
+.hero-cine-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/images/storm-hero.jpg') center 30% / cover no-repeat;
+  animation: hero-breathe 24s ease-in-out infinite alternate;
+}
+@keyframes hero-breathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+.hero-cine-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 13, 22, 0.62) 0%, rgba(8, 13, 22, 0.18) 38%, rgba(8, 13, 22, 0.55) 72%, #080D16 98%),
+    radial-gradient(ellipse 70% 55% at 50% 42%, transparent 30%, rgba(8, 13, 22, 0.5) 100%);
+}
+
+/* Rushing storm clouds: two soft dark masses drifting across the sky */
+.storm-clouds {
+  position: absolute;
+  top: -10%;
+  left: -30%;
+  width: 160%;
+  height: 46%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 38% 90% at 22% 40%, rgba(8, 13, 22, 0.55), transparent 70%),
+    radial-gradient(ellipse 32% 80% at 60% 25%, rgba(8, 13, 22, 0.45), transparent 70%),
+    radial-gradient(ellipse 28% 75% at 88% 45%, rgba(16, 27, 46, 0.5), transparent 70%);
+  filter: blur(26px);
+  animation: clouds-rush 75s linear infinite;
+}
+@keyframes clouds-rush {
+  from { transform: translateX(0); }
+  to { transform: translateX(-22%); }
+}
+
+/* Crashing waves at the hero's base: three layers, different speeds */
+.hero-waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 190px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  background-repeat: repeat-x;
+  background-size: 1100px 100%;
+}
+.wave-1 {
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 65 C180 15 380 110 600 55 C820 5 1010 105 1200 50 L1200 120 L0 120 Z' fill='%230B1220' fill-opacity='0.92'/%3E%3C/svg%3E");
+  animation: wave-drift 16s linear infinite;
+}
+.wave-2 {
+  height: 72%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 55 C220 105 420 10 640 60 C860 108 1040 15 1200 65 L1200 120 L0 120 Z' fill='%23101B2E' fill-opacity='0.75'/%3E%3C/svg%3E");
+  animation: wave-drift 10s linear infinite reverse;
+}
+.wave-3 {
+  height: 46%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0 60 C260 100 460 25 700 62 C920 95 1060 30 1200 58 L1200 120 L0 120 Z' fill='%23182640' fill-opacity='0.6'/%3E%3C/svg%3E");
+  animation: wave-drift 7s linear infinite;
+}
+/* foam highlight riding the fastest wave */
+.hero-waves::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 26%;
+  width: 200%;
+  height: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 8' preserveAspectRatio='none'%3E%3Cpath d='M0 5 C260 1 460 7 700 3 C920 0 1060 6 1200 4' stroke='%23BFD9FF' stroke-opacity='0.25' stroke-width='2.4' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 1100px 100%;
+  animation: wave-drift 7s linear infinite;
+}
+@keyframes wave-drift {
+  to { transform: translateX(-50%); }
+}
+
+/* Surf sound toggle */
+.wave-sound {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 20;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7688A0;
+  background: rgba(11, 18, 32, 0.6);
+  border: 1px solid rgba(141, 160, 181, 0.3);
+  border-radius: 9999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.wave-sound:hover { color: #E9EEF4; border-color: rgba(233, 238, 244, 0.6); }
+.wave-sound-on {
+  color: #F2B84B;
+  border-color: rgba(242, 184, 75, 0.55);
+  box-shadow: 0 0 16px rgba(242, 184, 75, 0.3);
+}
+
+/* Storm-waves photo on the deep sections so the theme runs page-long */
+#the-problem, #non-negotiables {
+  background-image:
+    linear-gradient(180deg, rgba(8, 13, 22, 0.9), rgba(8, 13, 22, 0.82)),
+    url('/images/storm-waves.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cine-bg, .storm-clouds, .wave, .hero-waves::after { animation: none !important; }
+}
