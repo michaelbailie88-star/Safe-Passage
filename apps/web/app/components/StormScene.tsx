@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 
 /**
  * The living storm: distant active lighthouse with a real sweeping beam,
@@ -13,11 +12,6 @@ import { usePathname } from "next/navigation";
  */
 export function StormScene({ full = false }: { full?: boolean }) {
   const [on, setOn] = useState(false);
-  const pathname = usePathname();
-  /* the homepage photograph already carries the real lighthouse — the
-     overlay tower would double it, so home gets beams from the photo's
-     own lamp instead (rendered inside the hero) */
-  const showTower = full && pathname !== "/";
   const flashRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<{ ctx: AudioContext; stop: () => void; thunder: (big: boolean) => void } | null>(null);
   const onRef = useRef(false);
@@ -143,14 +137,15 @@ export function StormScene({ full = false }: { full?: boolean }) {
     };
     let crashTimer = window.setTimeout(crash, 1500);
 
-    /* --- ship horn: every 30-45s, distant and mournful --- */
+    /* --- ship horn: every 30-45s, a full 7-second distant moan --- */
     const horn = () => {
       const t = ctx.currentTime;
+      const dur = 7;
       const hg = ctx.createGain();
       hg.gain.setValueAtTime(0.0001, t);
-      hg.gain.exponentialRampToValueAtTime(0.11, t + 0.55);
-      hg.gain.setValueAtTime(0.11, t + 1.5);
-      hg.gain.exponentialRampToValueAtTime(0.0001, t + 3.1);
+      hg.gain.exponentialRampToValueAtTime(0.11, t + 0.8);
+      hg.gain.setValueAtTime(0.11, t + 4.4);
+      hg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
       const hlp = ctx.createBiquadFilter();
       hlp.type = "lowpass";
       hlp.frequency.value = 320;
@@ -162,7 +157,7 @@ export function StormScene({ full = false }: { full?: boolean }) {
         o.frequency.value = f;
         o.connect(hg);
         o.start(t);
-        o.stop(t + 3.2);
+        o.stop(t + dur + 0.2);
       });
       hornTimer = window.setTimeout(horn, 30000 + Math.random() * 15000);
     };
@@ -240,14 +235,15 @@ export function StormScene({ full = false }: { full?: boolean }) {
         </div>
       )}
 
-      {showTower && (
-        <div className="ss-lighthouse" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/lighthouse-black.jpg" alt="" />
-          <span className="ss-lamp" />
-          <span className="ss-beam" />
-          <span className="ss-beam ss-beam-left" />
-        </div>
+      {full && (
+        <>
+          {/* the real lighthouse lives in the global storm photo; these are
+              its lamp glow and live sweeping beams, anchored to the fixed
+              background so they align on every page */}
+          <span className="hero-lamp" aria-hidden="true" />
+          <span className="hero-beam" aria-hidden="true" />
+          <span className="hero-beam hero-beam-low" aria-hidden="true" />
+        </>
       )}
 
       <div className="ss-rain ss-rain-a" aria-hidden="true" />

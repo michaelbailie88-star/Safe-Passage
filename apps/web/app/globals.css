@@ -915,3 +915,34 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .hero-beam, .hero-beam-low, .hero-lamp { animation: none !important; }
 }
+
+/* ==========================================================================
+   ONE STORM, EVERY PAGE — the real photograph becomes the site's global,
+   viewport-fixed background; the live lamp + beams anchor to it
+   ========================================================================== */
+
+html {
+  background: #080D16 url('/images/storm-sea.jpg') center 30% / cover fixed no-repeat;
+}
+/* let the global storm show through; sections/cards keep their own tints */
+body { background-color: transparent !important; }
+.bg-storm-gradient {
+  background: linear-gradient(180deg, rgba(8, 13, 22, 0.82), rgba(8, 13, 22, 0.88)) !important;
+}
+
+/* hero no longer needs its own photo layer — the global sky serves it */
+.hero-cine { background: transparent; }
+.hero-cine-bg { display: none; }
+.hero-cine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 13, 22, 0.5) 0%, rgba(8, 13, 22, 0.12) 38%, rgba(8, 13, 22, 0.5) 72%, rgba(8, 13, 22, 0.92) 98%);
+  pointer-events: none;
+}
+
+/* lamp + beams are FIXED to the viewport-locked photograph, so the same
+   real lighthouse shines on every page, always at the same sky position */
+.hero-lamp { position: fixed; right: 16.6%; top: 28.4%; }
+.hero-beam { position: fixed; right: 16.4%; top: 28.4%; }

@@ -9,14 +9,11 @@ export function Hero({ marginQuote }: { marginQuote: ReactNode }) {
       aria-labelledby="hero-heading"
       className="hero-cine relative overflow-hidden"
     >
-      <div className="hero-cine-bg" aria-hidden="true" />
       <div className="storm-clouds" aria-hidden="true" />
       <div className="hero-stars" aria-hidden="true" />
 
-      {/* live beam sweeping from the lighthouse lamp in the photograph */}
-      <span className="hero-lamp" aria-hidden="true" />
-      <span className="hero-beam" aria-hidden="true" />
-      <span className="hero-beam hero-beam-low" aria-hidden="true" />
+      {/* live beam sweeping from the lamp of the real lighthouse in the
+          global storm background (positioned by the fixed background) */}
 
       {/* soft darkness behind the type so the message floats on the storm */}
       <div className="hero-vignette" aria-hidden="true" />

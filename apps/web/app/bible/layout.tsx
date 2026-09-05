@@ -2,8 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "../(app)/AppNav";
 import { NavBar } from "../components/NavBar";
 import { Footer } from "../components/Footer";
-import { LighthouseBackdrop } from "../components/LighthouseBackdrop";
-import { LighthouseBeam } from "../components/LighthouseBeam";
 
 // The Bible reader is intentionally reachable whether or not someone is
 // signed in — same reasoning as /resources. The only thing that changes
@@ -28,8 +26,6 @@ export default async function BibleLayout({
 
     return (
       <>
-        <LighthouseBackdrop topOffset={96} variant="soft" />
-        <LighthouseBeam topOffset={96} variant="soft" />
         <AppNav firstName={profile?.full_name?.split(" ")[0]} isAdmin={profile?.is_admin} />
         <main>{children}</main>
         <Footer />
@@ -39,8 +35,6 @@ export default async function BibleLayout({
 
   return (
     <>
-      <LighthouseBackdrop topOffset={0} variant="soft" />
-      <LighthouseBeam topOffset={0} variant="soft" />
       <NavBar />
       <main>{children}</main>
       <Footer />

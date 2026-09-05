@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { BrandSeal } from "./BrandSeal";
-import { LighthouseBackdrop } from "./LighthouseBackdrop";
-import { LighthouseBeam } from "./LighthouseBeam";
 import { resourceGroups, type ResourceAction } from "@/lib/resources/data";
 
 function ResourceGroup({
@@ -60,8 +58,6 @@ export function ResourcesContent({
 }) {
   return (
     <section className="relative bg-storm-gradient pb-24 pt-32 sm:pt-40">
-      <LighthouseBackdrop topOffset={topOffset} variant="soft" />
-      <LighthouseBeam topOffset={topOffset} variant="soft" />
       {marginQuote}
       <div className="mx-auto max-w-4xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">
