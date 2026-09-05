@@ -773,3 +773,9 @@ body::after {
   .ss-rain, .ss-beam, .ss-beam-left, .ss-lamp { animation: none !important; }
   .ss-flash { display: none; }
 }
+
+/* Lighthouse dissolves into sea-fog at the base and frame edges */
+.ss-lighthouse img {
+  mask-image: linear-gradient(180deg, #000 78%, transparent 97%);
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 97%);
+}
