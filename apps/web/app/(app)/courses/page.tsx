@@ -10,7 +10,7 @@ import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 
 export const metadata: Metadata = {
   title: "Courses — Safe Passage",
-  description: "Six guided transformation courses: Rebuild, Fatherhood, Purpose, Relationships, Confidence, and Faith.",
+  description: "Seven guided transformation courses: Anchor, Rebuild, Fatherhood, Purpose, Relationships, Confidence, and Faith.",
 };
 
 export default async function ProgramsPage() {
@@ -43,12 +43,12 @@ export default async function ProgramsPage() {
             Courses
           </p>
           <h1 className="mt-4 font-display text-2xl italic text-mist-50 sm:text-3xl">
-            Six 8-week courses. Real change.
+            Seven guided courses. Real change.
           </h1>
           <p className="mt-3 text-sm text-fog-300">
             Each course ends with a certificate — not because it proves
             anything to anyone else, but because you&rsquo;ll know what it
-            took to earn it. Complete all six and you&rsquo;re eligible for
+            took to earn it. Complete them all and you&rsquo;re eligible for
             Guardian status — the free{" "}
             <Link href="/programs" className="text-beam-400 underline underline-offset-2">
               taster Programs
@@ -76,7 +76,7 @@ export default async function ProgramsPage() {
                 {program.name}
               </h2>
               <p className="mt-1 text-xs uppercase tracking-wide text-beam-400">
-                8 weeks
+                {program.weeks.length} weeks
               </p>
               <p className="mt-3 text-sm leading-relaxed text-fog-300">
                 {program.tagline}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,47 +13,53 @@ const navLinks = [
 
 export function NavBar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="relative z-20 mx-auto max-w-6xl px-6 py-6">
-      <div className="flex items-center justify-between">
+    <header className="nav-shell fixed inset-x-0 top-0 z-50">
+      <div className={`nav-shell-bg ${scrolled ? "nav-shell-bg-on" : ""}`} aria-hidden="true" />
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image
             src="/logo.png"
             alt="Safe Passage"
-            width={44}
-            height={44}
+            width={40}
+            height={40}
             priority
-            className="h-11 w-11"
+            className="h-10 w-10 drop-shadow-[0_0_14px_rgba(242,184,75,0.35)]"
           />
-          <span className="font-display text-2xl font-semibold tracking-tight text-mist-50 sm:text-3xl">
+          <span className="font-display text-xl font-semibold tracking-tight text-mist-50 sm:text-2xl">
             Safe Passage
           </span>
         </Link>
 
-        {/* Desktop nav — unchanged, untouched by the mobile menu below. Only
-            renders at md: (768px) and up. */}
-        <nav className="hidden items-center gap-8 text-sm text-fog-300 md:flex">
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="transition hover:text-mist-100">
+            <Link key={link.href} href={link.href} className="nav-link">
               {link.label}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-4">
-          <Link href="/sign-in" className="hidden text-sm text-fog-300 transition hover:text-mist-100 sm:inline">
+          <Link href="/sign-in" className="nav-link hidden sm:inline">
             Sign in
           </Link>
           <Link
             href="/sign-up"
-            className="rounded-full border border-beam-500/40 bg-beam-500/10 px-4 py-2 text-sm font-medium text-beam-400 transition hover:bg-beam-500/20"
+            className="rounded-full bg-[#E5A526] px-5 py-2 text-sm font-semibold text-[#080D16] shadow-[0_0_24px_-6px_rgba(242,184,75,0.6)] transition hover:bg-[#F2B84B] hover:shadow-[0_0_34px_-6px_rgba(242,184,75,0.8)]"
           >
             Start free
           </Link>
 
-          {/* Mobile menu toggle — only renders below md: (768px). Desktop
-              never sees this button at all, not just a hidden state of it. */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -75,15 +81,10 @@ export function NavBar() {
         </div>
       </div>
 
-      {/* Mobile menu panel — solid/opaque background (not see-through over
-          page content), absolutely positioned so it overlays rather than
-          pushing content down, toggled via opacity/visibility/pointer-events
-          so it's always in the DOM (no layout shift) but inert when closed.
-          md:hidden unconditionally: even if `open` were somehow true at a
-          desktop width, this never renders there. */}
+      {/* Mobile menu panel */}
       <div
         id="mobile-nav-panel"
-        className={`absolute left-0 right-0 top-full z-30 mx-4 mt-2 rounded-2xl border border-storm-700 bg-storm-950 p-4 shadow-2xl shadow-black/40 transition md:hidden ${
+        className={`absolute left-0 right-0 top-full z-30 mx-4 mt-2 rounded-2xl border border-beam-500/20 bg-storm-950/95 p-4 shadow-2xl shadow-black/40 backdrop-blur-xl transition md:hidden ${
           open ? "visible opacity-100" : "invisible pointer-events-none opacity-0"
         }`}
       >

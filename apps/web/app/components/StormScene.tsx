@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * The living storm: distant active lighthouse with a real sweeping beam,
@@ -12,6 +13,11 @@ import { useEffect, useRef, useState } from "react";
  */
 export function StormScene({ full = false }: { full?: boolean }) {
   const [on, setOn] = useState(false);
+  const pathname = usePathname();
+  /* the homepage photograph already carries the real lighthouse — the
+     overlay tower would double it, so home gets beams from the photo's
+     own lamp instead (rendered inside the hero) */
+  const showTower = full && pathname !== "/";
   const flashRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<{ ctx: AudioContext; stop: () => void; thunder: (big: boolean) => void } | null>(null);
   const onRef = useRef(false);
@@ -127,13 +133,13 @@ export function StormScene({ full = false }: { full?: boolean }) {
       bp.Q.value = 0.6;
       const cg = ctx.createGain();
       cg.gain.setValueAtTime(0.0001, t);
-      cg.gain.exponentialRampToValueAtTime(0.22, t + 0.22);
+      cg.gain.exponentialRampToValueAtTime(0.3, t + 0.22);
       cg.gain.exponentialRampToValueAtTime(0.0001, t + 1.7);
       csrc.connect(bp);
       bp.connect(cg);
       cg.connect(master);
       csrc.start();
-      crashTimer = window.setTimeout(crash, 3500 + Math.random() * 3000);
+      crashTimer = window.setTimeout(crash, 3000 + Math.random() * 2500);
     };
     let crashTimer = window.setTimeout(crash, 1500);
 
@@ -234,7 +240,7 @@ export function StormScene({ full = false }: { full?: boolean }) {
         </div>
       )}
 
-      {full && (
+      {showTower && (
         <div className="ss-lighthouse" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/lighthouse-black.jpg" alt="" />
