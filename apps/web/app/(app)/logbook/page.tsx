@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { BrandSeal } from "../../components/BrandSeal";
 import { MarginQuote } from "../../components/MarginQuote";
-import { LighthouseBeam } from "../../components/LighthouseBeam";
-import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
 import { pageQuotes } from "@/lib/pageQuotes";
 import { JournalView } from "./JournalView";
 
@@ -25,8 +23,6 @@ export default async function LogbookPage() {
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
-      <LighthouseBackdrop topOffset={96} variant="soft" />
-      <LighthouseBeam topOffset={96} variant="soft" />
       <MarginQuote quote={pageQuotes.logbook.quote} author={pageQuotes.logbook.author} cardWidthPx={672} />
       <div className="mx-auto max-w-2xl px-6">
         <div className="mx-4 sm:mx-auto max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-12 text-center shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12 sm:py-16">

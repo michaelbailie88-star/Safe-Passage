@@ -1,11 +1,13 @@
 import { rebuild, fatherhood } from "./rebuild-fatherhood";
 import { purpose, relationships } from "./purpose-relationships";
 import { confidence, faith } from "./confidence-faith";
+import { anchor } from "./anchor";
 import type { Program } from "./types";
 
 export type { Program, ProgramWeek } from "./types";
 
 export const programs: Program[] = [
+  anchor,
   rebuild,
   fatherhood,
   purpose,

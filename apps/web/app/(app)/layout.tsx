@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Footer } from "../components/Footer";
 import { AppNav } from "./AppNav";
 import { ListenerWidget } from "./ListenerWidget";
+import { StormScene } from "../components/StormScene";
 
 export default async function AppLayout({
   children,
@@ -39,6 +40,7 @@ export default async function AppLayout({
       <main>{children}</main>
       <Footer />
       <ListenerWidget />
+      <StormScene />
     </>
   );
 }

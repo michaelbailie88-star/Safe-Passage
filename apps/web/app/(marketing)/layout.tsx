@@ -1,5 +1,6 @@
 import { NavBar } from "../components/NavBar";
 import { Footer } from "../components/Footer";
+import { StormScene } from "../components/StormScene";
 
 export default function MarketingLayout({
   children,
@@ -8,6 +9,8 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <div className="storm-stars" aria-hidden="true" />
+      <StormScene full />
       <NavBar />
       <main>{children}</main>
       <Footer />

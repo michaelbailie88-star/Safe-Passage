@@ -58,6 +58,7 @@ export async function GET(
     // Closing line is specific to what each program's 8 weeks actually
     // cover — not one generic quote reused across all six certificates.
     const closingLines: Record<string, string> = {
+      anchor: "You built a steady point in bad weather. That doesn\u2019t wash out.",
       rebuild: "You didn\u2019t wait for the ground to stop shaking. You built anyway.",
       fatherhood:
         "Your kids won\u2019t remember the eight weeks. They\u2019ll remember what you do differently because of them.",
@@ -67,7 +68,7 @@ export async function GET(
       faith: "Not performed. Practiced. That\u2019s the difference, and you know it now.",
     };
     const closingLine =
-      closingLines[program.slug] ?? "The comeback is always greater than the setback.";
+      closingLines[program.slug] ?? "The storm didn\u2019t stop you. Nothing about that changes.";
 
     // --- Build the PDF ---
     const NAVY = rgb(11 / 255, 18 / 255, 32 / 255);
@@ -150,7 +151,7 @@ export async function GET(
     page.drawLine({ start: { x: width / 2 + 20, y: fy }, end: { x: width / 2 + 90, y: fy }, thickness: 0.75, color: GOLD });
     page.drawCircle({ x: width / 2, y: fy, size: 3, color: GOLD });
 
-    centered(`\u201c${closingLine}\u201d`, fy - 55, timesItalic, 15);
+    centered(closingLine, fy - 55, timesItalic, 15);
     centered("safepassage.com  \u00b7  The Lighthouse for Men Navigating Life's Storms", fy - 77, helvetica, 9, FOG);
 
     const pdfBytes = await pdfDoc.save();

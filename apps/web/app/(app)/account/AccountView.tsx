@@ -4,8 +4,6 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { LighthouseBackdrop } from "../../components/LighthouseBackdrop";
-import { LighthouseBeam } from "../../components/LighthouseBeam";
 
 type Profile = {
   full_name: string | null;
@@ -70,8 +68,6 @@ export function AccountView({
 
   return (
     <section className="relative bg-storm-gradient pb-24 pt-16">
-      <LighthouseBackdrop topOffset={96} variant="soft" />
-      <LighthouseBeam topOffset={96} variant="soft" />
       {marginQuote}
       <div className="mx-4 sm:mx-auto max-w-lg">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 px-6 py-10 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-12">

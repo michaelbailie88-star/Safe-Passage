@@ -26,7 +26,7 @@ export function TheProblem() {
           id="the-problem-heading"
           className="mt-4 font-display text-2xl text-mist-50 sm:text-3xl"
         >
-          Millions of men are weathering this silently.
+          Millions of men are weathering this <span className="text-glow-amber not-italic">silently.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-fog-300">
           Many don&rsquo;t seek help because existing solutions feel
@@ -35,10 +35,11 @@ export function TheProblem() {
         </p>
 
         <ul className="mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-2.5">
-          {storms.map((storm) => (
+          {storms.map((storm, i) => (
             <li
               key={storm}
-              className="rounded-full border border-storm-700 bg-storm-800/60 px-4 py-1.5 text-sm text-fog-300"
+              className="rise-in rounded-full border border-storm-700 bg-storm-800/60 px-4 py-1.5 text-sm text-fog-300 transition-colors hover:border-beam-500/50 hover:text-mist-100"
+              style={{ animationDelay: `${0.25 + i * 0.07}s` }}
             >
               {storm}
             </li>

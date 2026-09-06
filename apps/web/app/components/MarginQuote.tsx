@@ -29,13 +29,17 @@ export function MarginQuote({
       aria-hidden="true"
     >
       <div className="max-w-[340px] rounded-2xl border border-storm-700/60 bg-storm-900/40 px-7 py-8 backdrop-blur-sm">
-        <span className="font-display text-6xl italic text-beam-400">&ldquo;</span>
+        {author ? (
+          <span className="font-display text-6xl italic text-beam-400">&ldquo;</span>
+        ) : null}
         <p className="mt-2 font-display text-2xl italic leading-snug text-mist-100">
           {quote}
         </p>
-        <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
-          — {author}
-        </p>
+        {author ? (
+          <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-beam-400">
+            — {author}
+          </p>
+        ) : null}
       </div>
     </aside>
   );
