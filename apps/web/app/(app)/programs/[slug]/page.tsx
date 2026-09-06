@@ -15,6 +15,7 @@ const PROGRAM_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
   relationships: "programRelationships",
   confidence: "programConfidence",
   faith: "programFaith",
+  anchor: "programAnchor",
 };
 
 export function generateStaticParams() {

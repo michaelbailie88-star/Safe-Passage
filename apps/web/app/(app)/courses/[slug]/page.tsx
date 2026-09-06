@@ -19,6 +19,7 @@ const COURSE_QUOTE_KEY: Record<string, keyof typeof pageQuotes> = {
   relationships: "courseRelationships",
   confidence: "courseConfidence",
   faith: "courseFaith",
+  anchor: "courseAnchor",
 };
 
 export function generateStaticParams() {

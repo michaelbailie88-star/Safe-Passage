@@ -26,12 +26,14 @@ export type PageKey =
   | "programRelationships"
   | "programConfidence"
   | "programFaith"
+  | "programAnchor"
   | "courseRebuild"
   | "courseFatherhood"
   | "coursePurpose"
   | "courseRelationships"
   | "courseConfidence"
-  | "courseFaith";
+  | "courseFaith"
+  | "courseAnchor";
 
 export const pageQuotes: Record<PageKey, { quote: string; author: string }> = {
   home: { quote: "You're still here, still looking. That's not nothing. That's the whole starting line.", author: "" },
@@ -53,10 +55,12 @@ export const pageQuotes: Record<PageKey, { quote: string; author: string }> = {
   programRelationships: { quote: "Repair is a skill, not a personality trait. Every strong marriage has practiced it.", author: "" },
   programConfidence: { quote: "Doubt can ride along. It just doesn't get to drive anymore.", author: "" },
   programFaith: { quote: "You don't have to perform belief here. Honest seeking counts as seeking.", author: "" },
+  programAnchor: { quote: "You don't need the whole plan today. You need one thing that holds.", author: "" },
   courseRebuild: { quote: "Week by week. The foundation doesn't care about your pace, only your persistence.", author: "" },
   courseFatherhood: { quote: "Twenty focused minutes with them outweighs a distracted day.", author: "" },
   coursePurpose: { quote: "Direction comes back while you're moving, never while you're parked.", author: "" },
   courseRelationships: { quote: "One honest conversation, no scoreboard. Start there tonight.", author: "" },
   courseConfidence: { quote: "The voice saying you can't has a terrible track record. Look at you — still here.", author: "" },
   courseFaith: { quote: "Ask the hard question out loud. Faith that survives honesty is the kind that holds.", author: "" },
+  courseAnchor: { quote: "One small thing, held daily, is worth more than a hundred good intentions.", author: "" },
 };

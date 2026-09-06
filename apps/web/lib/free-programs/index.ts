@@ -7,6 +7,25 @@ export type FreeProgram = {
 
 export const freePrograms: FreeProgram[] = [
   {
+    slug: "anchor",
+    name: "Anchor",
+    tagline: "A free taste of finding steady ground — the full 4-week Course goes much deeper.",
+    tasks: [
+      "Write down the one thing weighing on you most, in one sentence.",
+      "Do a daily check-in for three days, even if the answer is 'fine.'",
+      "Take one 15-minute walk with no phone and notice what your mind keeps circling back to.",
+      "Choose one small daily non-negotiable — something almost embarrassingly small.",
+      "Do it every day this week. Miss once? Never miss twice.",
+      "Each night, write down one moment the anchor held, however small.",
+      "Reach out to one person you've gone quiet on. One line is enough.",
+      "Read two other men's posts or stories and respond honestly to one.",
+      "Write down who you'd call at 2 a.m. If no one comes to mind, that's this week's real work.",
+      "Review the week: what actually held, and what didn't.",
+      "Decide whether your anchor habit stays as-is or gets upgraded.",
+      "Write one sentence about the direction you want to head next.",
+    ],
+  },
+  {
     slug: "rebuild",
     name: "Rebuild",
     tagline: "A free taste of starting over — the full 8-week Course goes much deeper.",
