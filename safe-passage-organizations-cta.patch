@@ -1,0 +1,36 @@
+From e9dcf858ca531295b69c08eed42acf6a69fe4aa8 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 23 Sep 2026 16:34:59 -0400
+Subject: [PATCH] Add partner-inquiry CTA to the For Organizations page
+
+Links the existing /organizations marketing page to the Safe Passage
+B2B partner-inquiry Jotform.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012tztmb8XjpK8LPyw12A6ps
+---
+ apps/web/app/components/ForOrganizations.tsx | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/apps/web/app/components/ForOrganizations.tsx b/apps/web/app/components/ForOrganizations.tsx
+index a91f552..130a3e1 100644
+--- a/apps/web/app/components/ForOrganizations.tsx
++++ b/apps/web/app/components/ForOrganizations.tsx
+@@ -28,6 +28,14 @@ export function ForOrganizations({ marginQuote }: { marginQuote: ReactNode }) {
+         <p className="mt-4 text-sm leading-relaxed text-fog-300">
+           {placeholderBody}
+         </p>
++        <a
++          href="https://form.jotform.com/262655906336060"
++          target="_blank"
++          rel="noopener noreferrer"
++          className="mt-8 inline-block rounded-full bg-[#E5A526] px-8 py-3.5 text-sm font-semibold text-[#080D16] shadow-[0_0_34px_-6px_rgba(242,184,75,0.7)] transition hover:bg-[#F2B84B]"
++        >
++          Partner With Us &rarr;
++        </a>
+       </div>
+     </section>
+   );
+-- 
+2.43.0
+
