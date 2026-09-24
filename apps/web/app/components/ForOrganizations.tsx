@@ -28,6 +28,14 @@ export function ForOrganizations({ marginQuote }: { marginQuote: ReactNode }) {
         <p className="mt-4 text-sm leading-relaxed text-fog-300">
           {placeholderBody}
         </p>
+        <a
+          href="https://form.jotform.com/262655906336060"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-block rounded-full bg-[#E5A526] px-8 py-3.5 text-sm font-semibold text-[#080D16] shadow-[0_0_34px_-6px_rgba(242,184,75,0.7)] transition hover:bg-[#F2B84B]"
+        >
+          Partner With Us &rarr;
+        </a>
       </div>
     </section>
   );
